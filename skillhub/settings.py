@@ -13,7 +13,7 @@ BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
 DATABASES = {
     'default': dj_database_url.config(
-        default="sqlite:////{0}".format(os.path.join(BASE_DIR, 'db', 'skillhub.sqlite3')))}
+        default="sqlite:////{0}".format(os.path.join(BASE_DIR, 'db', 'development.sqlite3')))}
 
 ALLOWED_HOSTS = ['*']
 SECURE_PROXY_SSL_HEADER =  ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -121,6 +121,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocsa',
     'south',
+    'hub'
 )
 
 # A sample logging configuration. The only tangible logging
