@@ -122,6 +122,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocsa',
     'south',
     'bootstrap_toolkit',
+    'bootstrap3',
     'hub',
 )
 
