@@ -1,17 +1,30 @@
 <!DOCTYPE html>
+{% load bootstrap_toolkit %}
 {% load url from future %}
 {% load static %}
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    {% bootstrap_stylesheet_tag %}
+    {% bootstrap_stylesheet_tag "responsive" %}
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <title>SkillHub</title>
 </head>
 
 <body>
+
 <section class="container">
-        {% block content %}
-        {% endblock %}
+    {% block content %}
+    {% endblock %}
 </section>
+
+<footer>
+<ul>
+    <li> <a href="http://marianitadn.github.io" target="_blank">About me</a> </li>
+    <li> <a href="https://github.com/marianitadn/SkillHub" target="_blank">GitHub project</a> </li>
+    <li> Image from <a href="http://subtlepatterns.com/" target="_blank">Subtle Patterns</a> </li>
+ </ul>
+</footer>
 
 </body>
 </html>
