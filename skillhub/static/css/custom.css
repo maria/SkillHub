@@ -1,7 +1,17 @@
 body {
     background-image: url("http://skillhub.herokuapp.com/media/images/stardust.png");
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     height: 100%;
     width: 100%;
     max-width: 1240px;
+}
+
+#message {
+    color: white;
+    margin-left: 25%;
+    margin-top: 25%;
+}
+
+footer {
+    margin-left: 25%
 }
