@@ -1,11 +1,9 @@
-import urllib2
-
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
 from hub.connect_github import ConnectGitHub
-
+from hub.models import Account
 
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -24,6 +22,6 @@ class AuthorizeGitHub(TemplateView):
 class ConnectGitHubAccount(TemplateView):
 
     def get(self, request):
-        code = urllib2.urlparse.parse_qsl(request.url)[-1][-1]
-        account = ConnectGitHub().authorize(code)
-        return HttpResponse({'status': 'OK'})
+        token = ConnectGitHub().authorize(request.GET['code'])
+        Account.save_github_user(token)
+        return redirect("home")
