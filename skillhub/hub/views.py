@@ -9,7 +9,13 @@ class HomeView(TemplateView):
     template_name = 'home.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+        if hasattr(request, 'user') and not request.user.is_anonymous():
+            data = {'user': {'username': request.user.account.github_username,
+                             'url': user.account.github_url}
+                    }
+            return render(request, self.login_template_name, data)
+
+        return render(request, self.template_name, {'user': None})
 
 
 class AuthorizeGitHub(TemplateView):
@@ -23,5 +29,6 @@ class ConnectGitHubAccount(TemplateView):
 
     def get(self, request):
         token = ConnectGitHub().authorize(request.GET['code'])
-        Account.save_github_user(token)
+        account = Account.save_github_user(token)
+        account.login()
         return redirect("home")
