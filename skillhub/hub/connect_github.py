@@ -44,7 +44,8 @@ class OAuth(object):
                 }
         headers, data = self.requester.requestJsonAndCheck(
             verb="POST", url=TOKEN_URL, parameters=params)
-        return data
+
+        return data['data'].split('&')[0].split('=')[-1]
 
 
 class ConnectGitHub(object):
@@ -56,6 +57,4 @@ class ConnectGitHub(object):
 
     def authorize(self, code):
         token = self.oauth.get_access_token(code)
-        account = Account(github_token=token)
-        account.save()
-        return account
+        return token
