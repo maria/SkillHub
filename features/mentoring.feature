@@ -12,3 +12,9 @@ In order to start my first contribution
     Then I can relate to those steps
     And I can start contributing to a project
   
+  Scenario: Tutorials
+    Given I want to learn a new technology
+    When I browse the tutorials page
+    Then I can find a list of resources
+    And I can start learning through a tutorial
+    And find a project to contribute
