@@ -21,9 +21,9 @@ In order to find a good fitting for contributing
     When I click "Extend your skills"
     Then I can see a list of projects
     And the projects are not written in <languages>
-    Or the projects are written in the <less_comfotable_languages> 
+    Or the projects are written in the <last_languages> 
     And I can start browsing them to find a good fit
     
     Examples:
-     | languages | less_comfortables_languages |
+     | languages | last_languages |
      | Python, JavaScript, HTML, CSS | CSS,  HTML, JavaScript |
