@@ -5,28 +5,28 @@
       <ul class="list-group">
         <li class="list-group-item">
           <a href={% url 'home' %}>
-            <i class="mega-octicon octicon-home"></i>
+            <i class="octicon octicon-home"></i>
           </a>
         </li>
         <li class="list-group-item">
           <a href={% url 'tips' %}>
-            <i class="mega-octicon octicon-milestone"></i>
+            <i class="octicon octicon-milestone"></i>
           </a>
         </li>
         <li class="list-group-item">
           <a href={% url 'tutorials' %}>
-            <i class="mega-octicon octicon-book"></i>
+            <i class="octicon octicon-book"></i>
           </a>
         </li>
         {% if user.is_authenticated %}
         <li class="list-group-item">
           <a href={% url 'home' %}>
-            <i class="mega-octicon octicon-star"></i>
+            <i class="octicon octicon-star"></i>
           </a>
         </li>
        <li class="list-group-item">
           <a href={% url 'home' %}>
-            <i class="mega-octicon octicon-light-bull"></i>
+            <i class="octicon octicon-light-bull"></i>
           </a>
         </li>
         {% endif %}
