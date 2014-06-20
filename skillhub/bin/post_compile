@@ -22,4 +22,10 @@ if [ -f bin/install_bower ]; then
     bin/install_bower
 fi
 
+if [ -f bin/run_collectstatic ]; then
+    echo "-----> Running run_collectstatic"
+    chmod +x bin/run_collectstatic
+    bin/run_collectstatic
+fi
+
 echo "-----> Post-compile done"
