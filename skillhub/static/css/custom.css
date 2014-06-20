@@ -26,13 +26,12 @@ footer {
     margin-top: 15%
 }
 
-.second-menu{
+#second-menu{
     margin-top: 6%;
 }
 
-.second-menu.thumbnail{
+#second-menu .list-group-item{
     background: none;
-    border: none;
 }
 
 
