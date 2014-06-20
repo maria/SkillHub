@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+
 admin.autodiscover()
 
 from hub.views import (HomeView, AuthorizeGitHub, ConnectGitHubAccount,

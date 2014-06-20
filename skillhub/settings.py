@@ -119,13 +119,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocsa',
     'south',
     'bootstrap_toolkit',
     'bootstrap3',
     'hub',
-    'djangobower'
+    'djangobower',
 )
 
 BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components/')
