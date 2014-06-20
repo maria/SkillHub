@@ -18,6 +18,7 @@
             <p class="text-center lead page-header">Tutorials</p>
           </a>
         </li>
+        {% if user %}
         <li class="list-group-item">
           <a href={% url 'home' %}>
             <p class="text-center lead page-header">Practice</p>
@@ -28,6 +29,7 @@
             <p class="text-center lead page-header">Learn</p>
           </a>
         </li>
+        {% endif %}
       </ul>
     </div>
   </div>
