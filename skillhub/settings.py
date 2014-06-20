@@ -76,6 +76,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'djangobower.finders.BowerFinder'
 )
 
 # Make this unique, and don't share it with anybody.
@@ -124,6 +125,14 @@ INSTALLED_APPS = (
     'bootstrap_toolkit',
     'bootstrap3',
     'hub',
+    'djangobower'
+)
+
+BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components/')
+BOWER_INSTALLED_APPS = (
+    'jquery#1.9',
+    'underscore',
+    'octicons#2.0.0'
 )
 
 # A sample logging configuration. The only tangible logging
