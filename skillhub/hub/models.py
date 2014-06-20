@@ -83,3 +83,11 @@ class Tip(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField()
 
+
+class Tutorial(models.Model):
+    class Meta:
+        app_label = 'hub'
+
+    name = models.CharField(max_length=50)
+    description = models.TextField()
+

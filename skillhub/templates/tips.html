@@ -1,9 +1,9 @@
 {% extends "extended_base.html" %}
 {% block content %}
 <div class="span6" id="tips">
-{% with tip_template='tip.html' %}
+{% with item_template='item.html' %}
     {% for tip in tips %}
-        {% include tip_template with tip=tip %}
+        {% include item_template with item=tip %}
     {% endfor %}
 {% endwith %}
 </div>

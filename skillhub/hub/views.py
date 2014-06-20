@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
 from hub.connect_github import ConnectGitHub
-from hub.models import Account, Tip
+from hub.models import Account, Tip, Tutorial
 
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -48,4 +48,5 @@ class Tutorials(TemplateView):
     template_name = 'tutorials.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+        tutorials = Tutorial.objects.all()
+        return render(request, self.template_name, {'tutorials': tutorials})
