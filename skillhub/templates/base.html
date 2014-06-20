@@ -22,11 +22,11 @@
     </div>
     <ul class="nav navbar-nav navbar-right">
     {% if not user.is_authenticated %}
-        <li><a href={% url 'authorize' %}>Sign up</a></li>
-        <li><a href={% url 'authorize' %} class="octicon octicon-sign-in">Sign in</a></li>
+        <li><a href={% url 'authorize' %}><i class="mega-octicon octicon-mirror"></i></a></li>
+        <li><a href={% url 'authorize' %}><i class="mega-octicon octicon-sign-in"></i></a></li>
     {% else %}
-        <li><a href={{user.url}}> {{user.username}} </a></li>
-        <li><a href={% url 'logout' %} class="octicon octicon-sign-out">Log out</a></li>
+        <li><a href="https://github.com/{{user.username}}" target="_blank"><i class="mega-octicon octicon-octoface"></i></a></li>
+        <li><a href={% url 'logout' %}><i class="mega-octicon octicon-sign-out"></i></a></li>
     {% endif %}
     </ul>
     </div><!-- /.navbar-collapse -->
