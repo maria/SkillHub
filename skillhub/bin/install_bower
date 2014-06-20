@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-npm install -g
+npm install -g bower
