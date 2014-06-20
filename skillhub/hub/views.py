@@ -1,3 +1,4 @@
+from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
@@ -31,4 +32,11 @@ class ConnectGitHubAccount(TemplateView):
         token = ConnectGitHub().authorize(request.GET['code'])
         account = Account.save_github_user(token)
         message = Account.login(request, account.user.username, token)
+        return redirect("home")
+
+
+class LogoutAccount(TemplateView):
+
+    def get(self, request):
+        logout(request)
         return redirect("home")

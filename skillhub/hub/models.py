@@ -11,19 +11,42 @@ class Account(models.Model):
 
     user = models.OneToOneField(User)
     github_url = models.URLField()
+    github_token = models.TextField()
 
     @classmethod
     def save_github_user(cls, token):
         user_data = cls._get_github_info(token)
+        user = cls.get_user(token)
+
+        if user is not None:
+            return user.account
 
         user = User.objects.create_user(
             first_name=user_data['first_name'], last_name=user_data['last_name'],
             email=user_data['email'],
             username=user_data['username'], password=token)
 
-        account = cls(user=user, github_url=user_data['url'])
+        account = cls(user=user, github_url=user_data['url'], github_token=token)
         account.save()
         return account
+
+    @classmethod
+    def get_user(cls, token):
+        user_data = cls._get_github_info(token)
+
+        users = User.objects.filter(username=user_data['username'])
+
+        if len(users) is 1:
+            user = users[0]
+            if user.account.github_token != token:
+                user.password = token
+                user.save()
+
+                user.account.token = token
+                user.account.save()
+            return user
+
+        return None
 
     @classmethod
     def login(cls, request, username, password):
