@@ -4,11 +4,11 @@ from hub.models import Account, Tip, Skill
 
 
 class AccountAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'github_url')
+    list_display = ('id', 'github_url')
 
 
 class SkillAdmin(admin.ModelAdmin):
-    list_display = ('id', 'account',  'name', 'level')
+    list_display = ('id', 'name', 'level')
 
 
 class TipAdmin(admin.ModelAdmin):
