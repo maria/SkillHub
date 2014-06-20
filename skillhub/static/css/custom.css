@@ -36,4 +36,7 @@ footer {
     border: none;
 }
 
-
+#main-menu .octicon {
+width: 64px;
+text-align: center;
+}
