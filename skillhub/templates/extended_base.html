@@ -18,7 +18,7 @@
             <p class="text-center lead page-header">Tutorials</p>
           </a>
         </li>
-        {% if user %}
+        {% if user.is_authenticated %}
         <li class="list-group-item">
           <a href={% url 'home' %}>
             <p class="text-center lead page-header">Practice</p>
@@ -34,7 +34,6 @@
     </div>
   </div>
 </section>
-
 
 <div class="span8">
 {% block content %}

@@ -10,13 +10,7 @@ class HomeView(TemplateView):
     template_name = 'home.html'
 
     def get(self, request):
-        if not request.user.is_anonymous():
-            data = {'user': {'username': request.user.username,
-                             'url': request.user.account.github_url}
-                    }
-            return render(request, self.template_name, data)
-
-        return render(request, self.template_name, {'user': None})
+        return render(request, self.template_name)
 
 
 class AuthorizeGitHub(TemplateView):
