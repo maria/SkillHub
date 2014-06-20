@@ -40,3 +40,17 @@ class LogoutAccount(TemplateView):
     def get(self, request):
         logout(request)
         return redirect("home")
+
+
+class Tips(TemplateView):
+    template_name = 'tips.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+
+class Tutorials(TemplateView):
+    template_name = 'tutorials.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
