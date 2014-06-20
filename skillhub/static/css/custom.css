@@ -17,11 +17,22 @@ footer {
     margin-left: 35%
 }
 
+.thumbnail {
+    background: none;
+}
+
 #main-menu {
     margin-left: 35%;
     margin-top: 15%
 }
 
-.thumbnail {
-    background: none;
+.second-menu{
+    margin-top: 6%;
 }
+
+.second-menu.thumbnail{
+    background: none;
+    border: none;
+}
+
+

@@ -1,0 +1,40 @@
+{% include "base.html" %}
+
+<section id="second-menu">
+  <div class="span2">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <a href={% url 'home' %}>
+            <p class="text-center lead page-header">Home</p>
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href={% url 'tips' %}>
+            <p class="text-center lead page-header">Tips</p>
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href={% url 'tutorials' %}>
+            <p class="text-center lead page-header">Tutorials</p>
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href={% url 'home' %}>
+            <p class="text-center lead page-header">Practice</p>
+          </a>
+        </li>
+       <li class="list-group-item">
+          <a href={% url 'home' %}>
+            <p class="text-center lead page-header">Learn</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<div class="span8">
+{% block content %}
+{% endblock %}
+</div>
