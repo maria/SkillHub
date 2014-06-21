@@ -25,7 +25,7 @@
         <li><a href={% url 'authorize' %}><i class="mega-octicon octicon-mirror"></i></a></li>
         <li><a href={% url 'authorize' %}><i class="mega-octicon octicon-sign-in"></i></a></li>
     {% else %}
-        <li><a href="https://github.com/{{user.username}}" target="_blank"><i class="mega-octicon octicon-octoface"></i></a></li>
+        <li><a href={{user.account.github_url}} target="_blank">{% if user.account.avatar_url %}<img src={{ user.account.avatar_url }} class="img-circle" id="avatar"/>{% else %}<i class="mega-octicon octicon-octoface"></i>{% endif %}</a></li>
         <li><a href={% url 'logout' %}><i class="mega-octicon octicon-sign-out"></i></a></li>
     {% endif %}
     </ul>
