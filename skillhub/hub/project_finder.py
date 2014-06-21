@@ -22,7 +22,8 @@ class ProjectFinder(object):
         if type == ProjectTypes.PRACTICE:
             wanted_skills = wanted_skills[:MAX_SKILLS]
         elif type == ProjectTypes.LEARN:
-            wanted_skills = wanted_skills[-MAX_SKILLS:]
+            wanted_skills.reverse()
+            wanted_skills = wanted_skills[:MAX_SKILLS]
 
         # Search for projects based on what skills he wants to practice
         search = {'sort': 'stars', 'order': 'desc',
