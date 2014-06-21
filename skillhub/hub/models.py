@@ -14,6 +14,7 @@ class Account(models.Model):
     user = models.OneToOneField(User)
     github_url = models.URLField()
     github_token = models.TextField()
+    avatar_url = models.TextField()
 
     @classmethod
     def save_github_user(cls, token):
@@ -28,7 +29,8 @@ class Account(models.Model):
             email=user_data['email'],
             username=user_data['username'], password=token)
 
-        account = cls(user=user, github_url=user_data['url'], github_token=token)
+        account = cls(user=user, github_url=user_data['url'],
+                      github_token=token, avatar_url=user_data['avatar_url'])
         account.save()
         return account
 
@@ -66,8 +68,9 @@ class Account(models.Model):
         name = connection.name
 
         return {'email': connection.email, 'first_name': name.split(' ')[0],
-                'last_name': name.split(' ')[1], 'url': connection.url,
-                'username': connection.url.split('/')[-1]}
+                'last_name': name.split(' ')[1], 'url': connection.html_url,
+                'avatar_url': connection.avatar_url,
+                'username': connection.html_url.split('/')[-1]}
 
 
 
