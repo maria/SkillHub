@@ -1,9 +1,21 @@
 {% block content %}
 <div class="row">
-   <p class="text-center lead page-header"><i class="octicon octicon-light-bulb"></i>{{item.name}}</p>
-   <p> {{item.description}}</p>
+   {% if item.url %}
+    <p class="text-center lead page-header"><i class="octicon octicon-light-bulb"></i><a href={{item.url}}> {{item.name}}</a></p>
+    {% else %}
+    <p class="text-center lead page-header"><i class="octicon octicon-light-bulb"></i> {{item.name}}</p>
+   {% endif %}
+
+    {% if item.stars or item.forks %}
+    <p class="text-center">
+        {{item.stars}} <i class="octicon octicon-star"></i> and
+        {{item.forks}} <i class="octicon octicon-repo-forked"></i>
+    </p>
+    <hr class="divider"></hr>
+   {% endif %}
+
+   <p> {{item.description}} </p>
 </div>
 </br>
 </br>
 {% endblock %}
-a

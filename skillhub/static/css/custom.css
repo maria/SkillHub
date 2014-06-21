@@ -37,11 +37,16 @@ footer {
 }
 
 #main-menu .octicon {
-font-size: 64px;
-text-align: center;
+    font-size: 64px;
+    text-align: center;
 }
 
 #second-menu .octicon {
-font-size: 64px;
-text-align: center;
+    font-size: 64px;
+    text-align: center;
+}
+
+#projects .octicon-hubot {
+    font-size: 80px;
+    text-align: center;
 }
