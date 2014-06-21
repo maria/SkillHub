@@ -39,11 +39,13 @@ footer {
 #main-menu .octicon {
     font-size: 64px;
     text-align: center;
+    color: white;
 }
 
 #second-menu .octicon {
-    font-size: 64px;
+    font-size: 48px;
     text-align: center;
+    color: white;
 }
 
 #projects .octicon-hubot {
