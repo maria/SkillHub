@@ -59,7 +59,6 @@ class Practice(TemplateView):
     template_name = 'projects.html'
 
     def get(self, request):
-        projects_found = ProjectFinder.find_my_projects(account, ProjectTypes.PRACTICE)
         projects = Project.objects.filter(account=request.user.account,
                                           type=ProjectTypes.PRACTICE)
         return render(request, self.template_name, {'projects': projects})
@@ -69,7 +68,6 @@ class Learn(TemplateView):
     template_name = 'projects.html'
 
     def get(self, request):
-        projects_found = ProjectFinder.find_my_projects(account, ProjectTypes.LEARN)
         projects = Project.objects.filter(account=request.user.account,
                                          type=ProjectTypes.LEARN)
         return render(request, self.template_name, {'projects': projects})
