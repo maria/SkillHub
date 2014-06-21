@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.db import models
 
+from constants import ProjectTypes
 
 class Account(models.Model):
     class Meta:
@@ -99,11 +100,9 @@ class Project(models.Model):
     class Meta:
         app_label = 'hub'
 
-    TYPES = (('Practice', 'Practice'), ('Learn', 'Learn'))
-
     account = models.ManyToManyField(Account)
     skill = models.ManyToManyField(Skill)
-    type = models.CharField(max_length=30, choices=TYPES)
+    type = models.CharField(max_length=30, choices=tuple(ProjectTypes.items()))
     name = models.CharField(max_length=30)
     url = models.URLField()
     description = models.CharField(max_length=50)

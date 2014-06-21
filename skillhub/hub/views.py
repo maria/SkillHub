@@ -3,8 +3,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
+from constants import ProjectTypes
 from hub.connect_github import ConnectGitHub
-from hub.models import Account, Tip, Tutorial
+from hub.models import Account, Tip, Tutorial, Project
 
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -56,7 +57,8 @@ class Practice(TemplateView):
     template_name = 'projects.html'
 
     def get(self, request):
-        projects = []
+        projects = Project.objects.filter(account=request.user.account,
+                                          type=ProjectTypes.PRACTICE)
         return render(request, self.template_name, {'projects': projects})
 
 
@@ -64,7 +66,8 @@ class Learn(TemplateView):
     template_name = 'projects.html'
 
     def get(self, request):
-        projects = []
+        projects = Project.objects.filter(account=request.user.account,
+                                         type=ProjectTypes.LEARN)
         return render(request, self.template_name, {'projects': projects})
 
 
