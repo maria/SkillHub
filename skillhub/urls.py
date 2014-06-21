@@ -4,7 +4,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 from hub.views import (HomeView, AuthorizeGitHub, ConnectGitHubAccount,
-    LogoutAccount, Tips, Tutorials)
+    LogoutAccount, Tips, Tutorials, Practice, Learn)
 
 urlpatterns = patterns('',
     url(r'^$', HomeView.as_view(), name='home'),
@@ -13,5 +13,7 @@ urlpatterns = patterns('',
     url(r'^logout/', LogoutAccount.as_view(), name='logout'),
     url(r'^tips/', Tips.as_view(), name='tips'),
     url(r'^tutorials/', Tutorials.as_view(), name='tutorials'),
+    url(r'^practice/', Practice.as_view(), name='practice'),
+    url(r'^learn/', Learn.as_view(), name='learn'),
     url(r'^admin/', include(admin.site.urls)),
 )

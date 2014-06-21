@@ -50,3 +50,20 @@ class Tutorials(TemplateView):
     def get(self, request):
         tutorials = Tutorial.objects.all()
         return render(request, self.template_name, {'tutorials': tutorials})
+
+
+class Practice(TemplateView):
+    template_name = 'practice.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+
+class Learn(TemplateView):
+    template_name = 'learn.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+
+
