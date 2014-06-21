@@ -67,14 +67,6 @@ class Account(models.Model):
                 'last_name': name.split(' ')[1], 'url': connection.url,
                 'username': connection.url.split('/')[-1]}
 
-class Skill(models.Model):
-    class Meta:
-        app_label = 'hub'
-
-    account = models.ManyToManyField(Account)
-    name = models.CharField(max_length=30)
-    level = models.IntegerField()
-
 
 class Tip(models.Model):
     class Meta:
@@ -90,4 +82,30 @@ class Tutorial(models.Model):
 
     name = models.CharField(max_length=50)
     description = models.TextField()
+    url = models.URLField()
 
+
+class Skill(models.Model):
+    class Meta:
+        app_label = 'hub'
+
+    account = models.ManyToManyField(Account)
+    name = models.CharField(max_length=30)
+    level = models.IntegerField()
+
+
+class Project(models.Model):
+
+    class Meta:
+        app_label = 'hub'
+
+    TYPES = (('Practice', 'Practice'), ('Learn', 'Learn'))
+
+    account = models.ManyToManyField(Account)
+    skill = models.ManyToManyField(Skill)
+    type = models.CharField(max_length=30, choices=TYPES)
+    name = models.CharField(max_length=30)
+    url = models.URLField()
+    description = models.CharField(max_length=50)
+    stars = models.IntegerField()
+    forks = models.IntegerField()
