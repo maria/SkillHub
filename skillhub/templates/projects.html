@@ -1,0 +1,10 @@
+{% extends "extended_base.html" %}
+{% block content %}
+<div class="span6" id="projects">
+{% with item_template='item.html' %}
+    {% for project in projects %}
+        {% include item_template with item=project %}
+    {% endfor %}
+{% endwith %}
+</div>
+{% endblock %}

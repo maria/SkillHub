@@ -53,17 +53,19 @@ class Tutorials(TemplateView):
 
 
 class Practice(TemplateView):
-    template_name = 'practice.html'
+    template_name = 'projects.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+        projects = []
+        return render(request, self.template_name, {'projects': projects})
 
 
 class Learn(TemplateView):
-    template_name = 'learn.html'
+    template_name = 'projects.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+        projects = []
+        return render(request, self.template_name, {'projects': projects})
 
 
 
