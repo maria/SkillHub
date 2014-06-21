@@ -52,3 +52,6 @@ class Constants(object):
 class ProjectTypes(Constants):
     PRACTICE = 'Practice'
     LEARN = 'Learn'
+
+MAX_PROJECTS = 10
+MAX_SKILLS = 3

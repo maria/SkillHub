@@ -6,6 +6,8 @@ from django.views.generic import TemplateView
 from constants import ProjectTypes
 from hub.connect_github import ConnectGitHub
 from hub.models import Account, Tip, Tutorial, Project
+from hub.project_finder import ProjectFinder
+
 
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -24,7 +26,7 @@ class AuthorizeGitHub(TemplateView):
 class ConnectGitHubAccount(TemplateView):
 
     def get(self, request):
-        token = ConnectGitHub().authorize(request.GET['code'])
+        token = ConnectGitHub().get_access_token(request.GET['code'])
         account = Account.save_github_user(token)
         message = Account.login(request, account.user.username, token)
         return redirect("home")
@@ -57,6 +59,7 @@ class Practice(TemplateView):
     template_name = 'projects.html'
 
     def get(self, request):
+        projects_found = ProjectFinder.find_my_projects(account, ProjectTypes.PRACTICE)
         projects = Project.objects.filter(account=request.user.account,
                                           type=ProjectTypes.PRACTICE)
         return render(request, self.template_name, {'projects': projects})
@@ -66,6 +69,7 @@ class Learn(TemplateView):
     template_name = 'projects.html'
 
     def get(self, request):
+        projects_found = ProjectFinder.find_my_projects(account, ProjectTypes.LEARN)
         projects = Project.objects.filter(account=request.user.account,
                                          type=ProjectTypes.LEARN)
         return render(request, self.template_name, {'projects': projects})

@@ -13,9 +13,9 @@ AUTHORIZE_URL = 'https://github.com/login/oauth/authorize'
 TOKEN_URL = 'https://github.com/login/oauth/access_token'
 
 
-class OAuth(object):
+class ConnectGitHub(object):
 
-    def __init__(self, client_id, client_secret):
+    def __init__(self, client_id=GITHUB_CLIENT_ID, client_secret=GITHUB_CLIENT_SECRET):
         self.client_id = client_id
         self.client_secret = client_secret
 
@@ -46,15 +46,3 @@ class OAuth(object):
             verb="POST", url=TOKEN_URL, parameters=params)
 
         return data['data'].split('&')[0].split('=')[-1]
-
-
-class ConnectGitHub(object):
-
-    oauth = OAuth(client_id=GITHUB_CLIENT_ID, client_secret=GITHUB_CLIENT_SECRET)
-
-    def authorize_url(self):
-        return self.oauth.authorize_url()
-
-    def authorize(self, code):
-        token = self.oauth.get_access_token(code)
-        return token
