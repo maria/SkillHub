@@ -6,6 +6,7 @@ from django.db import models
 
 from constants import ProjectTypes
 
+
 class Account(models.Model):
     class Meta:
         app_label = 'hub'
@@ -69,6 +70,39 @@ class Account(models.Model):
                 'username': connection.url.split('/')[-1]}
 
 
+
+class Project(models.Model):
+
+    class Meta:
+        app_label = 'hub'
+
+    account = models.ForeignKey(Account)
+    type = models.CharField(max_length=30, choices=tuple(ProjectTypes.items()))
+    name = models.CharField(max_length=30)
+    url = models.URLField()
+    description = models.CharField(max_length=50)
+    stars = models.IntegerField()
+    forks = models.IntegerField()
+
+
+class Language(models.Model):
+    class Meta:
+        app_label = 'hub'
+
+    project = models.ForeignKey(Project)
+    name = models.CharField(max_length=50)
+    percentage = models.FloatField()
+
+
+class Skill(models.Model):
+    class Meta:
+        app_label = 'hub'
+
+    account = models.ForeignKey(Account)
+    name = models.CharField(max_length=30)
+    level = models.IntegerField()
+
+
 class Tip(models.Model):
     class Meta:
         app_label = 'hub'
@@ -86,25 +120,5 @@ class Tutorial(models.Model):
     url = models.URLField()
 
 
-class Skill(models.Model):
-    class Meta:
-        app_label = 'hub'
-
-    account = models.ManyToManyField(Account)
-    name = models.CharField(max_length=30)
-    level = models.IntegerField()
 
 
-class Project(models.Model):
-
-    class Meta:
-        app_label = 'hub'
-
-    account = models.ManyToManyField(Account)
-    skill = models.ManyToManyField(Skill)
-    type = models.CharField(max_length=30, choices=tuple(ProjectTypes.items()))
-    name = models.CharField(max_length=30)
-    url = models.URLField()
-    description = models.CharField(max_length=50)
-    stars = models.IntegerField()
-    forks = models.IntegerField()
