@@ -20,9 +20,9 @@ class ProjectFinder(object):
         # Get wanted skills
         wanted_skills = Skill.objects.filter(account=account)
         if type == ProjectTypes.PRACTICE:
-            wanted_skills = wanted_skills[MAX_SKILLS:]
-        elif type == ProjectTypes.LEARN:
             wanted_skills = wanted_skills[:MAX_SKILLS]
+        elif type == ProjectTypes.LEARN:
+            wanted_skills = wanted_skills[-MAX_SKILLS:]
 
         # Search for projects based on what skills he wants to practice
         search = {'sort': 'stars', 'order': 'desc',
