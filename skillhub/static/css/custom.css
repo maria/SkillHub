@@ -22,12 +22,12 @@ footer {
 }
 
 #main-menu {
-    margin-left: 35%;
+    margin-left: 40%;
     margin-top: 15%
 }
 
 #second-menu{
-    margin-top: 6%;
+    margin-top: 15%;
     margin-left: -4%;
 }
 
@@ -55,4 +55,25 @@ footer {
 
 img#avatar{
     height: 32px;
+}
+
+.#logo {
+    margin-left: 10%;
+}
+
+.navbar-nav.navbar-right:last-child#user-actions {
+    margin-right: 10%;
+}
+
+.nav.navbar-nav.navbar-right#contact {
+    margin-right: 40%;
+}
+
+#main-menu .skill-thumbnail {
+    width: 160px;
+    height: 160px;
+    padding: 6px 0;
+    font-size: 64px;
+    line-height: 2.3;
+    border-radius: 150px;
 }

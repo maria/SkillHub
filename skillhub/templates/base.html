@@ -16,11 +16,11 @@
 <body>
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container-fluid">
+  <div class="container-fluid" id="logo">
     <div class="navbar-header">
       <a class="navbar-brand" href={% url 'home' %}>SkillHub</a>
     </div>
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right" id="user-actions">
     {% if not user.is_authenticated %}
         <li><a href={% url 'authorize' %}><i class="mega-octicon octicon-mirror"></i></a></li>
         <li><a href={% url 'authorize' %}><i class="mega-octicon octicon-sign-in"></i></a></li>
@@ -40,7 +40,7 @@
 
 <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
   <div class="container-fluid">
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right" id="contact">
         <li> <a href="http://marianitadn.github.io" target="_blank">About me</a> </li>
         <li> <a href="https://github.com/marianitadn/SkillHub" target="_blank">GitHub project</a> </li>
         <li> <a href="http://subtlepatterns.com/" target="_blank">Background source</a> </li>
