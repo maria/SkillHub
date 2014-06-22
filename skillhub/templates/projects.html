@@ -1,17 +1,15 @@
 {% extends "extended_base.html" %}
 {% block content %}
-<div class="span12" id="projects">
+<div id="projects">
 {% if not projects %}
     <p class="text-center">We are sorry, but our robot couldn't find any match.Try again later or meanwhile start your own project.</p>
     <p class="text-center"><i class="octicon octicon-hubot"></i></p>
 {% else %}
-  <table>
     {% with item_template='project_item.html' %}
         {% for project in projects %}
             {% include item_template with items=project %}
         {% endfor %}
     {% endwith %}
-  </table>
 {% endif %}
 </div>
 {% endblock %}

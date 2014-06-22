@@ -6,12 +6,6 @@ body {
     max-width: 1240px;
 }
 
-p, h3 {
-    color: white;
-    margin-left: 25%;
-    margin-top: 5%;
-}
-
 footer {
     margin-top: 10%;
     margin-left: 35%
@@ -57,8 +51,8 @@ img#avatar{
     height: 32px;
 }
 
-.#logo {
-    margin-left: 10%;
+div#logo {
+    margin-left: 5%;
 }
 
 .navbar-nav.navbar-right:last-child#user-actions {
@@ -67,10 +61,6 @@ img#avatar{
 
 .nav.navbar-nav.navbar-right#contact {
     margin-right: 40%;
-}
-
-.caption {
-    background-color: rgb(240, 229, 229);
 }
 
 .caption a {
@@ -84,27 +74,22 @@ img#avatar{
     font-size: 64px;
     line-height: 2.3;
     border-radius: 150px;
+    border-color: white;
 }
 
-#projects .features{
-    position: relative;
-    left: 75%;
-    bottom: 90px;
+#projects {
+    margin-left: 25%;
 }
 
-#projects .features p {
-    margin-left: 15%;
+#projects div.thumbnail {
+    border-color: rgb(67, 61, 68);
+}
+
+#projects a.page-header{
+    color: rgb(138, 102, 158);
 }
 
 #projects .skill-thumbnail {
     text-decoration: none;
-    width: 130px;
-    height: 130px;
-    padding: 24px 0;
-    font-size: 12px;
-    line-height: 2.3;
-    border-radius: 130px;
-    border-color: rgb(86, 77, 92);
-    background-color: rgb(86, 77, 92);
 }
 
