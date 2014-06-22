@@ -81,9 +81,9 @@ class Project(models.Model):
 
     account = models.ForeignKey(Account)
     type = models.CharField(max_length=30, choices=tuple(ProjectTypes.items()))
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=50)
     url = models.URLField()
-    description = models.CharField(max_length=50)
+    description = models.TextField()
     stars = models.IntegerField()
     forks = models.IntegerField()
 
