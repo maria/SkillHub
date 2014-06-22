@@ -53,5 +53,10 @@ class ProjectTypes(Constants):
     PRACTICE = 'Practice'
     LEARN = 'Learn'
 
+# GitHub search query limits
 MAX_PROJECTS = 10
 MAX_SKILLS = 3
+MAX_STARS = 100
+MIN_STARS = 10
+MIN_FORKS = 10
+MAX_FORKS = 50

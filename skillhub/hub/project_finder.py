@@ -1,6 +1,7 @@
 from github.MainClass import Github
 
-from constants import MAX_PROJECTS, ProjectTypes, MAX_SKILLS
+from constants import (MAX_PROJECTS, ProjectTypes, MAX_SKILLS, MAX_STARS,
+    MIN_STARS, MIN_FORKS, MAX_FORKS)
 from hub.models import Project, Skill, Language
 
 
@@ -26,9 +27,13 @@ class ProjectFinder(object):
             wanted_skills = wanted_skills[:MAX_SKILLS]
 
         # Search for projects based on what skills he wants to practice
-        search = {'sort': 'stars', 'order': 'desc',
-                  'query': 'languages:%s' % wanted_skills}
-        repos = connection.search_repositories(**search)
+        query = 'languages:%s' % wanted_skills
+        stars = '%d..%d' % (MIN_STARS, MAX_STARS)
+        forks = '%d..%d' % (MIN_FORKS, MAX_FORKS)
+        qualifiers = {'stars': stars, 'forks': forks}
+
+        repos = connection.search_repositories(
+            query=query, sort='stars', order='desc', **qualifiers)
         cls.find_account_projects(account, repos, type)
 
     @classmethod
@@ -48,7 +53,11 @@ class ProjectFinder(object):
         repos_page = repos.get_page(i)
         while len(repos_page) < MAX_PROJECTS:
             i += 1
-            repos_page.extend(repos.get_page(i))
+            next_repos = repos.get_page(i)
+            if next_repos:
+                repos_page.extend(next_repos)
+            else:
+                break
         cls.set_projects_languages(account, repos_page, type)
 
     @classmethod
