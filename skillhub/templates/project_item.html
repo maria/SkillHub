@@ -1,0 +1,16 @@
+{% block content %}
+<tr>
+{% for item in items %}
+  <td>
+   <p> {{item.description}} </p>
+    <h4><i class="mega-octicon octicon-light-bulb"></i><a href={{item.url}}> {{item.name}}</a></h4>
+    <p class="text-center">
+        {{ item.stars }} <i class="octicon octicon-star"></i>
+        {{ item.forks }} <i class="octicon octicon-repo-forked"></i>
+        <i class="octicon octicon-pencil"></i>
+        {{ item.languages_names | join:", " }}
+    </p>
+  </td>
+{% endfor %}
+</tr>
+{% endblock %}

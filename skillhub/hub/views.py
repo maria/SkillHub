@@ -61,8 +61,9 @@ class Practice(TemplateView):
     def get(self, request):
         projects = Project.objects.filter(account=request.user.account,
                                           type=ProjectTypes.PRACTICE)
-
-        return render(request, self.template_name, {'projects': projects})
+        # Group project in pair of two, so we can display them in a table.
+        show_projects = zip(projects[0::2], projects[1::2])
+        return render(request, self.template_name, {'projects': show_projects})
 
 
 class Learn(TemplateView):
@@ -71,7 +72,9 @@ class Learn(TemplateView):
     def get(self, request):
         projects = Project.objects.filter(account=request.user.account,
                                          type=ProjectTypes.LEARN)
-        return render(request, self.template_name, {'projects': projects})
+        # Group project in pair of two, so we can display them in a table.
+        show_projects = zip(projects[0::2], projects[1::2])
+        return render(request, self.template_name, {'projects': show_projects})
 
 
 
