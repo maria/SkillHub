@@ -10,4 +10,4 @@ branches:
     - master
 
 before_script: cp skillhub/settings_local.py.example skillhub/settings_local.py
-script: lettuce
+script: lettuce features/skills.features
