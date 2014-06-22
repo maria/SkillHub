@@ -77,3 +77,20 @@ img#avatar{
     line-height: 2.3;
     border-radius: 150px;
 }
+
+#projects .features{
+    position: relative;
+    left: 68%;
+    bottom: 90px;
+}
+
+#projects .skill-thumbnail {
+    text-decoration: none;
+    width: 120px;
+    height: 120px;
+    padding: 24px 0;
+    font-size: 12px;
+    line-height: 2.3;
+    border-radius: 64px;
+}
+

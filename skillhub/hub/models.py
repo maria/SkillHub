@@ -89,7 +89,7 @@ class Project(models.Model):
 
     @property
     def languages(self):
-        return self.language_set.all()
+        return self.language_set.all()[:3]
 
     @property
     def languages_names(self):

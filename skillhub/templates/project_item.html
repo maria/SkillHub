@@ -1,16 +1,32 @@
 {% block content %}
 <tr>
 {% for item in items %}
-  <td>
-   <p> {{item.description}} </p>
-    <h4><i class="mega-octicon octicon-light-bulb"></i><a href={{item.url}}> {{item.name}}</a></h4>
-    <p class="text-center">
-        {{ item.stars }} <i class="octicon octicon-star"></i>
-        {{ item.forks }} <i class="octicon octicon-repo-forked"></i>
-        <i class="octicon octicon-pencil"></i>
-        {{ item.languages_names | join:", " }}
-    </p>
+  <td class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <p class="page-header"> {{ item.description }} </p>
+      <div class="caption">
+        <a href={{ item.url }} target="_blank"><i class="mega-octicon octicon-light-bulb lead">{{item.name}}</i></a>
+        <!--A small circle with the number of stars, forks and languages-->
+        <div class="features">
+          <div class="span2">
+              <a href="#" class="thumbnail skill-thumbnail">
+              <div align="center">
+                <p class="text-center">
+                  {{ item.stars }} <i class="octicon octicon-star"></i>&nbsp;&nbsp;&nbsp;{{ item.forks }} <i class="octicon octicon-repo-forked"></i>
+                </p>
+                <p>
+                  <i class="octicon octicon-pencil"></i>
+                  {{ item.languages_names | join:", " }}
+                </p>
+              </div>
+              </a>
+          </div>
+        </div><!--end of .features-->
+        </div>
+      </div>
+    </div>
   </td>
 {% endfor %}
 </tr>
 {% endblock %}
+
