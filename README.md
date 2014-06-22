@@ -9,3 +9,7 @@
 **App**: http://skillhub.herokuapp.com
 
 **Features**: Check [features](https://github.com/marianitadn/SkillHub/tree/master/features/) to find out more.
+
+------
+
+Travis Build ![image](https://travis-ci.org/marianitadn/SkillHub.svg?branch=master)
