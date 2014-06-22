@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
-from constants import ProjectTypes
+from constants import ProjectTypes, MAX_PROJECTS
 from hub.connect_github import ConnectGitHub
 from hub.models import Account, Tip, Tutorial, Project
 from hub.project_finder import ProjectFinder
@@ -60,7 +60,7 @@ class Practice(TemplateView):
 
     def get(self, request):
         projects = Project.objects.filter(account=request.user.account,
-                                          type=ProjectTypes.PRACTICE)
+                                          type=ProjectTypes.PRACTICE)[:MAX_PROJECTS]
         # Group project in pair of two, so we can display them in a table.
         show_projects = zip(projects[0::2], projects[1::2])
         return render(request, self.template_name, {'projects': show_projects})
@@ -71,7 +71,7 @@ class Learn(TemplateView):
 
     def get(self, request):
         projects = Project.objects.filter(account=request.user.account,
-                                         type=ProjectTypes.LEARN)
+                                         type=ProjectTypes.LEARN)[:MAX_PROJECTS]
         # Group project in pair of two, so we can display them in a table.
         show_projects = zip(projects[0::2], projects[1::2])
         return render(request, self.template_name, {'projects': show_projects})

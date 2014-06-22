@@ -10,15 +10,8 @@
         <div class="features">
           <div class="span2">
               <a href="#" class="thumbnail skill-thumbnail">
-              <div align="center">
-                <p class="text-center">
-                  {{ item.stars }} <i class="octicon octicon-star"></i>&nbsp;&nbsp;&nbsp;{{ item.forks }} <i class="octicon octicon-repo-forked"></i>
-                </p>
-                <p>
-                  <i class="octicon octicon-pencil"></i>
-                  {{ item.languages_names | join:", " }}
-                </p>
-              </div>
+                <p>{{ item.stars }} <i class="octicon octicon-star"></i>&nbsp;&nbsp;{{ item.forks }} <i class="octicon octicon-repo-forked"></i></p>
+                <p><i class="octicon octicon-pencil"></i>{% if item.languages_names %} {{ item.languages_names | join:", " }} {% else %} None {% endif %}</p>
               </a>
           </div>
         </div><!--end of .features-->

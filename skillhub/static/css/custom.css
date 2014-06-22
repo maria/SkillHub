@@ -69,6 +69,14 @@ img#avatar{
     margin-right: 40%;
 }
 
+.caption {
+    background-color: rgb(240, 229, 229);
+}
+
+.caption a {
+    color: rgb(86, 77, 92);
+}
+
 #main-menu .skill-thumbnail {
     width: 160px;
     height: 160px;
@@ -80,17 +88,23 @@ img#avatar{
 
 #projects .features{
     position: relative;
-    left: 68%;
+    left: 75%;
     bottom: 90px;
+}
+
+#projects .features p {
+    margin-left: 15%;
 }
 
 #projects .skill-thumbnail {
     text-decoration: none;
-    width: 120px;
-    height: 120px;
+    width: 130px;
+    height: 130px;
     padding: 24px 0;
     font-size: 12px;
     line-height: 2.3;
-    border-radius: 64px;
+    border-radius: 130px;
+    border-color: rgb(86, 77, 92);
+    background-color: rgb(86, 77, 92);
 }
 
