@@ -61,6 +61,7 @@ class Practice(TemplateView):
     def get(self, request):
         projects = Project.objects.filter(account=request.user.account,
                                           type=ProjectTypes.PRACTICE)
+
         return render(request, self.template_name, {'projects': projects})
 
 

@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.db import models
 
-from constants import ProjectTypes
+from constants import ProjectTypes, MAX_PROJECTS
 
 
 class Account(models.Model):
@@ -86,6 +86,14 @@ class Project(models.Model):
     description = models.TextField()
     stars = models.IntegerField()
     forks = models.IntegerField()
+
+    @property
+    def languages(self):
+        return self.language_set.all()
+
+    @property
+    def languages_names(self):
+        return [language.name for language in self.languages]
 
 
 class Language(models.Model):
