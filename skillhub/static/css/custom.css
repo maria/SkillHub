@@ -11,6 +11,10 @@ footer {
     margin-left: 35%
 }
 
+p, h3 {
+    color: white;
+}
+
 .thumbnail {
     background: none;
 }
@@ -22,7 +26,8 @@ footer {
 
 #second-menu{
     margin-top: 15%;
-    margin-left: -4%;
+    margin-left: 2%;
+    position:fixed;
 }
 
 #second-menu .list-group-item{
@@ -40,6 +45,10 @@ footer {
     font-size: 48px;
     text-align: center;
     color: white;
+}
+
+#sad-hubot {
+    margin-left: 10%;
 }
 
 #projects .octicon-hubot {
@@ -81,8 +90,14 @@ div#logo {
     margin-left: 25%;
 }
 
+
 #projects div.thumbnail {
     border-color: rgb(67, 61, 68);
+    margin-bottom: 6%;
+}
+
+#projects div.thumbnail:last-of-type {
+    margin-bottom: 20%;
 }
 
 #projects a.page-header{
