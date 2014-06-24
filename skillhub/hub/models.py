@@ -121,18 +121,20 @@ class Project(TimestampFields):
 class Language(models.Model):
     class Meta:
         app_label = 'hub'
+        unique_together = ('project', 'name')
 
     project = models.ForeignKey(Project)
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50)
     percentage = models.FloatField()
 
 
 class Skill(models.Model):
     class Meta:
         app_label = 'hub'
+        unique_together = ('account', 'name')
 
     account = models.ForeignKey(Account)
-    name = models.CharField(max_length=30, unique=True)
+    name = models.CharField(max_length=30)
     level = models.IntegerField()
 
 

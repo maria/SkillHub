@@ -13,6 +13,7 @@ class ProjectFinder(object):
         """Find projects for a user, based on hers/his needs: to practice or
         to learn. Save the data in the database.
         """
+        from nose.tools import set_trace; set_trace()
         connection = Github(login_or_token=account.github_token)
 
         # Find user Skills
@@ -26,11 +27,12 @@ class ProjectFinder(object):
         if len(wanted_skills) == 0 and type == ProjectTypes.PRACTICE:
             return
 
-        query = 'languages:%s' % wanted_skills
+        languages = ','.join([skill.name.lower() for skill in wanted_skills])
+        query = 'language:%s' % languages
         # Settings to find an active project
         stars = '%d..%d' % (MIN_STARS, MAX_STARS)
         forks = '%d..%d' % (MIN_FORKS, MAX_FORKS)
-        pushed = '<=%s' % get_last_month()
+        pushed = '>%s' % get_last_month()
         qualifiers = {'stars': stars, 'forks': forks, 'pushed': pushed}
         # Search GH API for projects.
         repos = connection.search_repositories(
