@@ -73,6 +73,7 @@ class ProjectFinder(object):
                     contribution = Contribution(**attributes)
                     contribution.save()
             i += 1
+            issues_page = issues.get_page(i)
 
     @classmethod
     def get_account_wanted_skills(cls, account, type):
