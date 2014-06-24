@@ -112,6 +112,7 @@ class ProjectFinder(object):
             # If exists, update the language attributes, else create a new entry.
             if Language.objects.filter(project=project, name=language):
                 language = Language.objects.get(project=project, name=language)
+                language.percentage = level
             else:
                 language = Language(project=project, name=language, percentage=level)
 
@@ -125,6 +126,7 @@ class ProjectFinder(object):
             # If exits, update the skill attributes, else create a new entry.
             if Skill.objects.filter(account=account, name=language):
                 skill = Skill.objects.get(account=account, name=language)
+                skill.level = level
             else:
                 skill = Skill(account=account, name=language, level=level)
             skill.save()
