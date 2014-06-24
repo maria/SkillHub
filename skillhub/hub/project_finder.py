@@ -3,7 +3,7 @@ from github.MainClass import Github
 from constants import (ProjectTypes, MAX_SKILLS, MAX_STARS,
     MIN_STARS, MIN_FORKS, MAX_FORKS, MAX_PROJECTS)
 from helpers import get_last_month
-from hub.models import Project, Skill, Language
+from hub.models import Project, Skill, Language, Contribution
 
 
 class ProjectFinder(object):
@@ -42,6 +42,37 @@ class ProjectFinder(object):
 
         # Save the projects which are a match for the user.
         cls.find_account_projects(account, repos, type)
+
+    @classmethod
+    def find_my_contributions(cls, account):
+        """Find and save the user contributions. A contribution is a merged
+        Pull Request opened by the user.
+        """
+        connection = Github(login_or_token=account.github_token)
+
+        # Set query to find contributions
+        qualifiers = {'is': 'merged', 'type': 'pr',
+                      'author': account.user.username}
+
+        # Search GH API for projects.
+        issues = connection.search_issues(
+            query='', sort='updated', order='desc', **qualifiers)
+
+        i = 0
+        issues_page = issues.get_page(i)
+        while issues_page:
+            for issue in issues_page:
+
+                attributes = {'account': account, 'title': issue.title,
+                              'url': issue.html_url,
+                              'repo': issue.repository.name,
+                              'repo_url': issue.repository.html_url,
+                              'merged': issue.updated_at}
+
+                if not Contribution.objects.filter(**attributes):
+                    contribution = Contribution(**attributes)
+                    contribution.save()
+            i += 1
 
     @classmethod
     def get_account_wanted_skills(cls, account, type):

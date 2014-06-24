@@ -118,6 +118,20 @@ class Project(TimestampFields):
         return [language.name for language in self.languages]
 
 
+class Contribution(TimestampFields):
+
+    class Meta:
+        app_label = 'hub'
+        unique_together = ('account', 'url')
+
+    account = models.ForeignKey(Account)
+    title = models.TextField()
+    url = models.URLField()
+    merged = models.DateTimeField()
+    repo = models.CharField(max_length=50)
+    repo_url = models.URLField()
+
+
 class Language(models.Model):
     class Meta:
         app_label = 'hub'
