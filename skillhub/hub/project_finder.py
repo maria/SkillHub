@@ -123,8 +123,8 @@ class ProjectFinder(object):
         for language, level in languages.iteritems():
             level = level / total_lines
             # If exits, update the skill attributes, else create a new entry.
-            if Skill.objects.filter(account=account, name=name):
-                skill = Skill.objects.get(account=account, name=name)
+            if Skill.objects.filter(account=account, name=language):
+                skill = Skill.objects.get(account=account, name=language)
             else:
                 skill = Skill(account=account, name=language, level=level)
             skill.save()
