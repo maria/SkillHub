@@ -98,11 +98,11 @@ div#logo {
     margin-bottom: 6%;
 }
 
-#projects div.thumbnail:last-of-type {
+#projects div.thumbnail:last-of-type, #contributions div.thumbnail:last-of-type {
     margin-bottom: 20%;
 }
 
-#projects a.page-header{
+#projects a.page-header, #contributions a.page-header{
     color: rgb(138, 102, 158);
 }
 
