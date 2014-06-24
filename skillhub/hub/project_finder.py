@@ -75,10 +75,19 @@ class ProjectFinder(object):
     def set_projects_languages(cls, account, repos, type):
         for repo in repos:
             languages = repo.get_languages()
-            project = Project(account=account, type=type,
-                              name=repo.name, url=repo.html_url,
-                              description=repo.description,
-                              stars=repo.stargazers_count, forks=repo.forks)
+            attributes = {'account': account, 'url': repo.html_url, 'type': type}
+
+            if Project.objects.filter(**attributes):
+                project = Project.objects.get(**attributes)
+            else:
+                project = Project(**attributes)
+
+            attributes = {'name': repo.name, 'description': repo.description,
+                         'stars': repo.stargazers_count, 'forks': repo.forks}
+
+            for attribute, value in attributes.iteritems():
+                setattr(project, attribute, value)
+
             project.save()
             cls.set_languages(project, languages)
             project.save()
@@ -95,7 +104,12 @@ class ProjectFinder(object):
         total_lines = sum([line for line in languages.itervalues()])
         for language, level in languages.iteritems():
             level = level / total_lines
-            language = Language(project=project, name=language, percentage=level)
+            # If exists, update the language attributes, else create a new entry.
+            if Language.objects.filter(project=project, name=language):
+                language = Language.objects.get(project=project, name=language)
+            else:
+                language = Language(project=project, name=language, percentage=level)
+
             language.save()
 
     @classmethod
@@ -103,5 +117,9 @@ class ProjectFinder(object):
         total_lines = sum([line for line in languages.itervalues()])
         for language, level in languages.iteritems():
             level = level / total_lines
-            skill = Skill(account=account, name=language, level=level)
+            # If exits, update the skill attributes, else create a new entry.
+            if Skill.objects.filter(account=account, name=name):
+                skill = Skill.objects.get(account=account, name=name)
+            else:
+                skill = Skill(account=account, name=language, level=level)
             skill.save()
