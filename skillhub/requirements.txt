@@ -15,3 +15,4 @@ wsgiref==0.1.2
 # Own version of PyGithub
 https://github.com/marianitadn/PyGithub/tarball/add-oauth-authentication
 django-bower
+arrow

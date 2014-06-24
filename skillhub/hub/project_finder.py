@@ -1,7 +1,8 @@
 from github.MainClass import Github
 
-from constants import (MAX_PROJECTS, ProjectTypes, MAX_SKILLS, MAX_STARS,
-    MIN_STARS, MIN_FORKS, MAX_FORKS)
+from constants import (ProjectTypes, MAX_SKILLS, MAX_STARS,
+    MIN_STARS, MIN_FORKS, MAX_FORKS, MAX_PROJECTS)
+from helpers import get_last_month
 from hub.models import Project, Skill, Language
 
 
@@ -30,7 +31,8 @@ class ProjectFinder(object):
         query = 'languages:%s' % wanted_skills
         stars = '%d..%d' % (MIN_STARS, MAX_STARS)
         forks = '%d..%d' % (MIN_FORKS, MAX_FORKS)
-        qualifiers = {'stars': stars, 'forks': forks}
+        pushed = '<=%s' % get_last_month()
+        qualifiers = {'stars': stars, 'forks': forks, 'pushed': pushed}
 
         repos = connection.search_repositories(
             query=query, sort='stars', order='desc', **qualifiers)
