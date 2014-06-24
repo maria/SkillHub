@@ -4,3 +4,7 @@
 *.pyc
 *_local.py
 db
+skillhub/static/admin/
+skillhub/static/bootstrap_toolkit/
+skillhub/static/datepicker/
+skillhub/static/octicons/
