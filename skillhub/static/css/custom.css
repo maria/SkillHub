@@ -93,7 +93,7 @@ div#logo {
 }
 
 
-#projects div.thumbnail {
+#projects div.thumbnail, #contributions div.thumbnail {
     border-color: rgb(67, 61, 68);
     margin-bottom: 6%;
 }
