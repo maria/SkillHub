@@ -1,8 +1,10 @@
 {% block content %}
-<div class="row">
-    <p class="text-center lead page-header"><i class="mega-octicon octicon-git-pull-request"></i><a href={{item.url}}> {{item.title}}</a></p>
-    <p class="text-center lead page-header"><i class="octicon octicon-link"></i><a href={{item.repo_url}}>{{item.repo}}</a></p>
+<div class="row thumbnail" align="center">
+  <a class="page-header" href={{ item.url }} target="_blank"><i class="mega-octicon octicon-git-pull-request lead">{{ item.title }}</i></a>
+    <div class="page-header">
+        <a href="#" class="skill-thumbnail">
+            <p class="text-center lead"><i class="octicon octicon-link"></i><a href={{ item.repo_url }}>{{ item.repo }}</a></p>
+        </a>
+    </div>
 </div>
-</br>
-</br>
 {% endblock %}

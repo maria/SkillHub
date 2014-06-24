@@ -9,7 +9,7 @@
 {% else %}
     {% with item_template='contribution_item.html' %}
         {% for contribution in contributions %}
-            {% include item_template with items=contribution %}
+            {% include item_template with item=contribution %}
         {% endfor %}
     {% endwith %}
 {% endif %}
