@@ -20,6 +20,11 @@
         </li>
         {% if user.is_authenticated %}
         <li class="list-group-item">
+          <a href={% url 'contributions' %}>
+            <i class="octicon octicon-broadcast"></i>
+          </a>
+        </li>
+        <li class="list-group-item">
           <a href={% url 'practice' %}>
             <i class="octicon octicon-star"></i>
           </a>

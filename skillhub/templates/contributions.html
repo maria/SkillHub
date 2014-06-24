@@ -1,0 +1,17 @@
+{% extends "extended_base.html" %}
+{% block content %}
+<div id="contributions">
+{% if not contributions %}
+  <div id="sad-hubot">
+    <p class="text-center">You haven't made any contributions yet. Start working on a project or find one to contribute to it.</p>
+    <p class="text-center"><i class="octicon octicon-hubot"></i></p>
+  </div>
+{% else %}
+    {% with item_template='contribution_item.html' %}
+        {% for contribution in contributions %}
+            {% include item_template with items=contribution %}
+        {% endfor %}
+    {% endwith %}
+{% endif %}
+</div>
+{% endblock %}

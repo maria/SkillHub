@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 
 from constants import ProjectTypes, MAX_PROJECTS
 from hub.connect_github import ConnectGitHub
-from hub.models import Account, Tip, Tutorial, Project
+from hub.models import Account, Tip, Tutorial, Project, Contribution
 from hub.project_finder import ProjectFinder
 
 
@@ -53,6 +53,15 @@ class Tutorials(TemplateView):
     def get(self, request):
         tutorials = Tutorial.objects.all()
         return render(request, self.template_name, {'tutorials': tutorials})
+
+
+class AccountContributions(TemplateView):
+    template_name = 'contributions.html'
+
+    def get(self, request):
+        contributions = Contribution.objects.filter(
+            account=request.user.account).extra(order_by=['-merged'])
+        return render(request, self.template_name, {'contributions': contributions})
 
 
 class Practice(TemplateView):
