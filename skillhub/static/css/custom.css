@@ -49,7 +49,7 @@ p, h3 {
 
 #sad-hubot {
     margin-left: 20%;
-    margin-top: 50%;
+    margin-top: 40%;
 }
 
 #projects .octicon-hubot {
@@ -89,6 +89,7 @@ div#logo {
 
 #projects {
     margin-left: 25%;
+    margin-top: 10%
 }
 
 
