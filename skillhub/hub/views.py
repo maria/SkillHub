@@ -59,7 +59,7 @@ class Practice(TemplateView):
     template_name = 'projects.html'
 
     def get(self, request):
-        projects = _get_projects(request.user.account)
+        projects = _get_projects(request.user.account, ProjectTypes.PRACTICE)
         return render(request, self.template_name, {'projects': projects})
 
 
@@ -67,14 +67,13 @@ class Learn(TemplateView):
     template_name = 'projects.html'
 
     def get(self, request):
-        projects = _get_projects(request.user.account)
+        projects = _get_projects(request.user.account, ProjectTypes.LEARN)
         return render(request, self.template_name, {'projects': projects})
 
 
-def _get_projects(account):
-    projects = Project.objects.filter(
-        account=account, type=ProjectTypes.LEARN).extra(
-            order_by=['-updated_at'])[:MAX_PROJECTS]
+def _get_projects(account, type):
+    projects = Project.objects.filter(account=account, type=type).extra(
+        order_by=['-updated_at'])[:MAX_PROJECTS]
     # Group project in pair of two, so we can display them in a table.
     return zip(projects[0::2], projects[1::2])
 
