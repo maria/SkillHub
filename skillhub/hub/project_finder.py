@@ -21,8 +21,12 @@ class ProjectFinder(object):
 
         # Search for projects based on what skills he wants to practice
         wanted_skills = cls.get_account_wanted_skills(account, type)
-        query = 'languages:%s' % wanted_skills
+        # If the user doesn't have any skills and she/he wants to practice,
+        # return none, let him start a project on his own / learn.
+        if len(wanted_skills) == 0 and type == ProjectTypes.PRACTICE:
+            return
 
+        query = 'languages:%s' % wanted_skills
         # Settings to find an active project
         stars = '%d..%d' % (MIN_STARS, MAX_STARS)
         forks = '%d..%d' % (MIN_FORKS, MAX_FORKS)
@@ -38,6 +42,7 @@ class ProjectFinder(object):
     @classmethod
     def get_account_wanted_skills(cls, account, type):
         wanted_skills = Skill.objects.filter(account=account)
+
         # Return based on the activity the list of languages.
         if type == ProjectTypes.PRACTICE:
             wanted_skills = wanted_skills[:MAX_SKILLS]
