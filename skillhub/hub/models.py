@@ -78,6 +78,7 @@ class Project(models.Model):
 
     class Meta:
         app_label = 'hub'
+        unique_together = ('account', 'type', 'url')
 
     account = models.ForeignKey(Account)
     type = models.CharField(max_length=30, choices=tuple(ProjectTypes.items()))
@@ -101,7 +102,7 @@ class Language(models.Model):
         app_label = 'hub'
 
     project = models.ForeignKey(Project)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     percentage = models.FloatField()
 
 
@@ -110,7 +111,7 @@ class Skill(models.Model):
         app_label = 'hub'
 
     account = models.ForeignKey(Account)
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True)
     level = models.IntegerField()
 
 
