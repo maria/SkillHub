@@ -1,6 +1,6 @@
 {% extends "extended_base.html" %}
 {% block content %}
-<div class="span6" id="tips">
+<div id="tips">
 {% with item_template='item.html' %}
     {% for tip in tips %}
         {% include item_template with item=tip %}
