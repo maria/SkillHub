@@ -76,6 +76,6 @@ def _get_projects(account):
         account=account, type=ProjectTypes.LEARN).extra(
             order_by=['-updated_at'])[:MAX_PROJECTS]
     # Group project in pair of two, so we can display them in a table.
-    show_projects = zip(projects[0::2], projects[1::2])
+    return zip(projects[0::2], projects[1::2])
 
 
