@@ -1,8 +1,6 @@
 {% block content %}
 <div class="span8 thumbnail" align="center">
   <a class="page-header" href={{ item.url }} target="_blank"><i class="mega-octicon octicon-git-pull-request lead"> {{ item.title }}</i></a>
-    <div class="page-header">
-        <p class="text-center lead">You contribute to the project: <a href={{ item.repo_url }}>{{ item.repo }}</a> on {{ item.merged_date }}.</p>
-    </div>
+  <p class="text-center lead">You contribute to the project: <a href={{ item.repo_url }}>{{ item.repo }}</a> on {{ item.merged_date }}.</p>
 </div>
 {% endblock %}

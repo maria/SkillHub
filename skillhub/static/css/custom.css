@@ -110,3 +110,7 @@ div#logo {
     text-decoration: none;
 }
 
+#contributions a {
+    color: rgb(138, 102, 158);
+}
+
