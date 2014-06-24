@@ -19,24 +19,33 @@ class ProjectFinder(object):
         repos = connection.get_user().get_repos()
         cls.find_account_skills(account, repos)
 
-        # Get wanted skills
+        # Search for projects based on what skills he wants to practice
+        wanted_skills = cls.get_account_wanted_skills(account, type)
+        query = 'languages:%s' % wanted_skills
+
+        # Settings to find an active project
+        stars = '%d..%d' % (MIN_STARS, MAX_STARS)
+        forks = '%d..%d' % (MIN_FORKS, MAX_FORKS)
+        pushed = '<=%s' % get_last_month()
+        qualifiers = {'stars': stars, 'forks': forks, 'pushed': pushed}
+        # Search GH API for projects.
+        repos = connection.search_repositories(
+            query=query, sort='stars', order='desc', **qualifiers)
+
+        # Save the projects which are a match for the user.
+        cls.find_account_projects(account, repos, type)
+
+    @classmethod
+    def get_account_wanted_skills(cls, account, type):
         wanted_skills = Skill.objects.filter(account=account)
+        # Return based on the activity the list of languages.
         if type == ProjectTypes.PRACTICE:
             wanted_skills = wanted_skills[:MAX_SKILLS]
         elif type == ProjectTypes.LEARN:
             wanted_skills.reverse()
             wanted_skills = wanted_skills[:MAX_SKILLS]
 
-        # Search for projects based on what skills he wants to practice
-        query = 'languages:%s' % wanted_skills
-        stars = '%d..%d' % (MIN_STARS, MAX_STARS)
-        forks = '%d..%d' % (MIN_FORKS, MAX_FORKS)
-        pushed = '<=%s' % get_last_month()
-        qualifiers = {'stars': stars, 'forks': forks, 'pushed': pushed}
-
-        repos = connection.search_repositories(
-            query=query, sort='stars', order='desc', **qualifiers)
-        cls.find_account_projects(account, repos, type)
+        return wanted_skills
 
     @classmethod
     def find_account_skills(cls, account, repos):
