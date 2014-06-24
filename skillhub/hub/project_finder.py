@@ -13,7 +13,6 @@ class ProjectFinder(object):
         """Find projects for a user, based on hers/his needs: to practice or
         to learn. Save the data in the database.
         """
-        from nose.tools import set_trace; set_trace()
         connection = Github(login_or_token=account.github_token)
 
         # Find user Skills
@@ -27,8 +26,7 @@ class ProjectFinder(object):
         if len(wanted_skills) == 0 and type == ProjectTypes.PRACTICE:
             return
 
-        languages = ','.join([skill.name.lower() for skill in wanted_skills])
-        query = 'language:%s' % languages
+        query = 'language:%s' % ','.join(wanted_skills)
         # Settings to find an active project
         stars = '%d..%d' % (MIN_STARS, MAX_STARS)
         forks = '%d..%d' % (MIN_FORKS, MAX_FORKS)
@@ -43,7 +41,7 @@ class ProjectFinder(object):
 
     @classmethod
     def get_account_wanted_skills(cls, account, type):
-        wanted_skills = Skill.objects.filter(account=account)
+        wanted_skills = Skill.objects.filter(account=account).extra(order_by=['-level'])
 
         # Return based on the activity the list of languages.
         if type == ProjectTypes.PRACTICE:
@@ -52,7 +50,7 @@ class ProjectFinder(object):
             wanted_skills.reverse()
             wanted_skills = wanted_skills[:MAX_SKILLS]
 
-        return wanted_skills
+        return [skill.name.lower() for skill in wanted_skills]
 
     @classmethod
     def find_account_skills(cls, account, repos):
@@ -110,7 +108,7 @@ class ProjectFinder(object):
     def set_languages(cls, project, languages):
         total_lines = sum([line for line in languages.itervalues()])
         for language, level in languages.iteritems():
-            level = level / total_lines
+            level = (level * 100.0) / total_lines
             # If exists, update the language attributes, else create a new entry.
             if Language.objects.filter(project=project, name=language):
                 language = Language.objects.get(project=project, name=language)
@@ -123,7 +121,7 @@ class ProjectFinder(object):
     def set_skills(cls, account, languages):
         total_lines = sum([line for line in languages.itervalues()])
         for language, level in languages.iteritems():
-            level = level / total_lines
+            level = (level * 100.0) / total_lines
             # If exits, update the skill attributes, else create a new entry.
             if Skill.objects.filter(account=account, name=language):
                 skill = Skill.objects.get(account=account, name=language)
