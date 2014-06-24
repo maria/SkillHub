@@ -1,3 +1,4 @@
+import arrow
 from github import Github
 
 from django.contrib.auth import authenticate, login
@@ -130,6 +131,10 @@ class Contribution(TimestampFields):
     merged = models.DateTimeField()
     repo = models.CharField(max_length=50)
     repo_url = models.URLField()
+
+    @property
+    def merged_date(self):
+        return arrow.formatter.DateTimeFormatter().format(self.merged, 'YYYY-MM-DD')
 
 
 class Language(models.Model):
