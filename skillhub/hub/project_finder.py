@@ -85,7 +85,7 @@ class ProjectFinder(object):
             if Project.objects.filter(**attributes):
                 project = Project.objects.get(**attributes)
             else:
-                project = Project(**attributes)
+                project = Project(account=account, url=repo.html_url, type=type)
 
             attributes = {'name': repo.name, 'description': repo.description,
                          'stars': repo.stargazers_count, 'forks': repo.forks}
