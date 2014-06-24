@@ -7,7 +7,28 @@ from django.db import models
 from constants import ProjectTypes, MAX_PROJECTS
 
 
-class Account(models.Model):
+
+class TimestampFields(models.Model):
+    '''
+        An abstract model to include in your model class
+        for time tracking goodness. Includes the tracking
+        fields:
+        - created_at (when the instance was created)
+        - updated_at (when the instance was last written in
+                      the database)
+    '''
+
+    class Meta:
+        abstract = True
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True,
+                                      blank=True, help_text='When this '
+                                      'instance was created')
+    updated_at = models.DateTimeField(auto_now=True, null=True,
+                                      blank=True, help_text='When this '
+                                      'instance was last updated')
+
+class Account(TimestampFields):
     class Meta:
         app_label = 'hub'
 
@@ -74,7 +95,7 @@ class Account(models.Model):
 
 
 
-class Project(models.Model):
+class Project(TimestampFields):
 
     class Meta:
         app_label = 'hub'
