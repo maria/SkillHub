@@ -14,7 +14,7 @@
             <div align="center"><i class="octicon octicon-book lead"></i></div>
             </a>
           </div>
-
+    {% if user.is_authenticated %}
           <div class="span3">
             <a href={% url 'contributions' %} class="thumbnail skill-thumbnail">
             <div align="center"><i class="octicon octicon-broadcast lead"></i></div>
@@ -22,7 +22,6 @@
           </div>
     </div>
     </br>
-    {% if user.is_authenticated %}
     <div class="row">
           <div class="span3">
               <a href={% url 'practice' %} class="thumbnail skill-thumbnail">
@@ -35,8 +34,17 @@
               <div align="center"><i class="octicon octicon-rocket lead"></i></div>
             </a>
           </div>
+
+          <div class="span3">
+            <a href={% url 'home' %} class="thumbnail skill-thumbnail">
+              <div align="center"><i class="octicon octicon-gift lead"></i></div>
+            </a>
+          </div>
     </div>
   </div>
+  {% else %}
+  </div>
+  </br>
   {% endif %}
 </section>
 {% endblock %}
