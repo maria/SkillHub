@@ -26,12 +26,16 @@ class ProjectFinder(object):
         if len(wanted_skills) == 0 and type == ProjectTypes.PRACTICE:
             return
 
-        query = 'language:%s' % ','.join(wanted_skills)
-        # Settings to find an active project
+        # We need the names for the GH query.
+        wanted_languages = [skill.name.lower() for skill in wanted_skills]
+        query = 'language:%s' % ','.join(wanted_languages)
+
+        # Set query to find an active project
         stars = '%d..%d' % (MIN_STARS, MAX_STARS)
         forks = '%d..%d' % (MIN_FORKS, MAX_FORKS)
         pushed = '>%s' % get_last_month()
         qualifiers = {'stars': stars, 'forks': forks, 'pushed': pushed}
+
         # Search GH API for projects.
         repos = connection.search_repositories(
             query=query, sort='stars', order='desc', **qualifiers)
@@ -49,8 +53,7 @@ class ProjectFinder(object):
         elif type == ProjectTypes.LEARN:
             wanted_skills.reverse()
             wanted_skills = wanted_skills[:MAX_SKILLS]
-
-        return [skill.name.lower() for skill in wanted_skills]
+        return wanted_skills
 
     @classmethod
     def find_account_skills(cls, account, repos):
@@ -82,18 +85,20 @@ class ProjectFinder(object):
             languages = repo.get_languages()
             attributes = {'account': account, 'url': repo.html_url, 'type': type}
 
-            if Project.objects.filter(**attributes):
-                project = Project.objects.get(**attributes)
+            if Project.objects.filter(account=account, url=repo.html_url, type=type):
+                project = Project.objects.get(
+                    account=account, url=repo.html_url, type=type)
             else:
                 project = Project(account=account, url=repo.html_url, type=type)
 
+            # Set new attributes on project.
             attributes = {'name': repo.name, 'description': repo.description,
                          'stars': repo.stargazers_count, 'forks': repo.forks}
 
             for attribute, value in attributes.iteritems():
                 setattr(project, attribute, value)
-
             project.save()
+            # Set languages on project.
             cls.set_languages(project, languages)
             project.save()
 
