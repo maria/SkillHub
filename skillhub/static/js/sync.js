@@ -1,10 +1,10 @@
 $.ajax({
-  url: "http://skillhub.heroku-app.com/sync",
-  dataType:"json",
-
-})
-  .done(function( data ) {
-    {
-      console.log( "Sample of data:", data.slice( 0, 100 ) );
+    url: window.location.origin + "/sync/",
+    dataType:"json",
+    success: function(response) {
+        $("#sync-hubot").remove();
+    },
+    failure: function(response) {
+        alert('Something went wrong please refresh.');
     }
-  });
+})
