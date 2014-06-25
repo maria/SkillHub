@@ -10,7 +10,7 @@ from django.views.generic import TemplateView, View
 from constants import ProjectTypes
 from hub.connect_github import ConnectGitHub
 from helpers import get_projects, get_last_day
-from hub.models import Account, Tip, Tutorial, Project, Contribution
+from hub.models import Account, Tip, Tutorial, Project, Contribution, AccountBadge
 from hub.project_finder import ProjectFinder
 
 
@@ -102,3 +102,11 @@ class Learn(TemplateView):
     def get(self, request):
         projects = get_projects(request.user.account, ProjectTypes.LEARN)
         return render(request, self.template_name, {'projects': projects})
+
+class AccountBadges(TemplateView):
+    template_name = 'badges.html'
+
+    def get(self, request):
+        badges = AccountBadge.objects.filter(account=request.user.account)
+        return render(request, self.template_name, {'badges': badges})
+

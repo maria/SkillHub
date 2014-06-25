@@ -9,7 +9,7 @@ admin.autodiscover()
 
 from hub.views import (HomeView, AuthorizeGitHub, ConnectGitHubAccount,
     LogoutAccount, Tips, Tutorials, Practice, Learn, AccountContributions,
-    SyncGithubData)
+    SyncGithubData, AccountBadges)
 
 urlpatterns = patterns('',
     url(r'^$', HomeView.as_view(), name='home'),
@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^practice/', Practice.as_view(), name='practice'),
     url(r'^learn/', Learn.as_view(), name='learn'),
     url(r'^contributions/', AccountContributions.as_view(), name='contributions'),
+    url(r'^badges/', AccountBadges.as_view(), name='badges'),
     url(r'^admin/', include(admin.site.urls)),
 )
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
