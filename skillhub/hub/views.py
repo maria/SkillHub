@@ -1,3 +1,4 @@
+import datetime
 import json
 
 from django.contrib.auth import logout
@@ -6,8 +7,9 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View
 
-from constants import ProjectTypes, MAX_PROJECTS
+from constants import ProjectTypes
 from hub.connect_github import ConnectGitHub
+from helpers import get_projects, get_last_day
 from hub.models import Account, Tip, Tutorial, Project, Contribution
 from hub.project_finder import ProjectFinder
 
@@ -16,7 +18,15 @@ class HomeView(TemplateView):
     template_name = 'home.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+        data = {"sync": self._should_sync(request)}
+        return render(request, self.template_name, data)
+
+    def _should_sync(self, request):
+        if hasattr(request.user, 'account'):
+            if (not request.user.account.synced_at or
+                    (request.user.account.synced_at - get_last_day()).days < 0):
+                return True
+        return False
 
 
 class AuthorizeGitHub(TemplateView):
@@ -47,12 +57,10 @@ class SyncGithubData(View):
     def get(self, request):
         """Sync GitHub data for the account. Update contributions and projects.
         """
-        from nose.tools import set_trace; set_trace()
-        data = {'redirect': 'home.html'}
-        return HttpResponse(json.dumps(data), 'application/javascript')
-        ProjectFinder.find_my_contributions(request.user.account)
-        ProjectFinder.find_my_projects(request.user.account, ProjectTypes.PRACTICE)
-        ProjectFinder.find_my_projects(request.user.account, ProjectTypes.LEARN)
+        account = request.user.account
+        ProjectFinder.sync_account(account)
+        return HttpResponse(content=json.dumps({"status": "ok"}),
+                            content_type='application/javascript')
 
 
 class Tips(TemplateView):
@@ -84,7 +92,7 @@ class Practice(TemplateView):
     template_name = 'projects.html'
 
     def get(self, request):
-        projects = _get_projects(request.user.account, ProjectTypes.PRACTICE)
+        projects = get_projects(request.user.account, ProjectTypes.PRACTICE)
         return render(request, self.template_name, {'projects': projects})
 
 
@@ -92,14 +100,5 @@ class Learn(TemplateView):
     template_name = 'projects.html'
 
     def get(self, request):
-        projects = _get_projects(request.user.account, ProjectTypes.LEARN)
+        projects = get_projects(request.user.account, ProjectTypes.LEARN)
         return render(request, self.template_name, {'projects': projects})
-
-
-def _get_projects(account, type):
-    projects = Project.objects.filter(account=account, type=type).extra(
-        order_by=['-updated_at'])[:MAX_PROJECTS]
-    # Group project in pair of two, so we can display them in a table.
-    return zip(projects[0::2], projects[1::2])
-
-

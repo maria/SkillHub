@@ -9,6 +9,14 @@ from hub.models import Project, Skill, Language, Contribution
 class ProjectFinder(object):
 
     @classmethod
+    def sync_account(cls, account):
+        cls.find_my_contributions(account)
+        cls.find_my_projects(account, ProjectTypes.PRACTICE)
+        cls.find_my_projects(account, ProjectTypes.LEARN)
+        account.synced_at = arrow.utcnow().datetime
+        account.save()
+
+    @classmethod
     def find_my_projects(cls, account, type):
         """Find projects for a user, based on hers/his needs: to practice or
         to learn. Save the data in the database.
