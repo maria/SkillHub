@@ -60,6 +60,11 @@ class BadgeTypes(Constants):
     FIVE_SKILLS = 'five_skills'
 
 
+class BadgeNames(Constants):
+    FIRST_CONTRIBUTION = 'first contribution'
+    TEN_CONTRIBUTIONS = 'ten contributions'
+    FIVE_SKILLS = 'five skills'
+
 class BadgeUrls(Constants):
     FIRST_CONTRIBUTION = 'https://octodex.github.com/images/baracktocat.jpg'
     TEN_CONTRIBUTIONS = 'https://octodex.github.com/images/dojocat.jpg'

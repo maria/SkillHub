@@ -180,6 +180,7 @@ class Badge(models.Model):
     class Meta:
         app_label = 'hub'
 
+    name = models.CharField(max_length=50)
     type = models.CharField(max_length=50, choices=tuple(BadgeTypes.items()))
     url = models.URLField()
 
