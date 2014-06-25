@@ -86,14 +86,15 @@ class ProjectFinder(object):
 
     @classmethod
     def get_account_wanted_skills(cls, account, type):
-        wanted_skills = Skill.objects.filter(account=account).extra(order_by=['-level'])
+        wanted_skills = Skill.objects.filter(
+            account=account, level__gte=0.4).extra(order_by=['-level'])
 
         # Return based on the activity the list of languages.
         if type == ProjectTypes.PRACTICE:
             wanted_skills = wanted_skills[:MAX_SKILLS]
         elif type == ProjectTypes.LEARN:
-            wanted_skills.reverse()
-            wanted_skills = wanted_skills[:MAX_SKILLS]
+            reversed_skills = wanted_skills.reverse()
+            wanted_skills = reversed_skills[:MAX_SKILLS]
         return wanted_skills
 
     @classmethod
