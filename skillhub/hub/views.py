@@ -29,13 +29,25 @@ class ConnectGitHubAccount(TemplateView):
         token = ConnectGitHub().get_access_token(request.GET['code'])
         account = Account.save_github_user(token)
         message = Account.login(request, account.user.username, token)
-        return redirect("home")
+        return redirect("sync")
 
 
 class LogoutAccount(TemplateView):
 
     def get(self, request):
         logout(request)
+        return redirect("home")
+
+
+class SyncGithubData(TemplateView):
+    template_name = 'sync.html'
+
+    def get(self, request):
+        """Sync GitHub data for the account. Update contributions and projects.
+        """
+        ProjectFinder.find_my_contributions(request.user.account)
+        ProjectFinder.find_my_projects(request.user.account, ProjectTypes.PRACTICE)
+        ProjectFinder.find_my_projects(request.user.account, ProjectTypes.LEARN)
         return redirect("home")
 
 
