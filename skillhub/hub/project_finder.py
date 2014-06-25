@@ -1,3 +1,4 @@
+import arrow
 from github.MainClass import Github
 
 from constants import (ProjectTypes, MAX_SKILLS, MAX_STARS,
@@ -123,13 +124,12 @@ class ProjectFinder(object):
     def set_projects_languages(cls, account, repos, type):
         for repo in repos:
             languages = repo.get_languages()
-            attributes = {'account': account, 'url': repo.html_url, 'type': type}
 
-            if Project.objects.filter(account=account, url=repo.html_url, type=type):
-                project = Project.objects.get(
-                    account=account, url=repo.html_url, type=type)
+            attributes = {'account': account, 'url': repo.html_url, 'type': type}
+            if Project.objects.filter(**attributes):
+                project = Project.objects.get(**attributes)
             else:
-                project = Project(account=account, url=repo.html_url, type=type)
+                project = Project(**attributes)
 
             # Set new attributes on project.
             attributes = {'name': repo.name, 'description': repo.description,
@@ -138,40 +138,42 @@ class ProjectFinder(object):
             for attribute, value in attributes.iteritems():
                 setattr(project, attribute, value)
             project.save()
+
             # Set languages on project.
-            cls.set_languages(project, languages)
-            project.save()
+            cls.set_languages(project.id, languages)
 
     @classmethod
     def set_account_skills(cls, account, repos):
         for repo in repos:
             languages = repo.get_languages()
-            cls.set_skills(account, languages)
-            account.save()
+            cls.set_skills(account.id, languages)
 
     @classmethod
-    def set_languages(cls, project, languages):
+    def set_languages(cls, project_id, languages):
         total_lines = sum([line for line in languages.itervalues()])
         for language, level in languages.iteritems():
             level = (level * 100.0) / total_lines
+
             # If exists, update the language attributes, else create a new entry.
-            if Language.objects.filter(project=project, name=language):
-                language = Language.objects.get(project=project, name=language)
+            attributes = {'project_id': project_id, 'name': language}
+
+            if Language.objects.filter(**attributes):
+                language = Language.objects.get(**attributes)
                 language.percentage = level
             else:
-                language = Language(project=project, name=language, percentage=level)
-
+                language = Language(percentage=level, **attributes)
             language.save()
 
     @classmethod
-    def set_skills(cls, account, languages):
+    def set_skills(cls, account_id, languages):
         total_lines = sum([line for line in languages.itervalues()])
         for language, level in languages.iteritems():
             level = (level * 100.0) / total_lines
             # If exits, update the skill attributes, else create a new entry.
-            if Skill.objects.filter(account=account, name=language):
-                skill = Skill.objects.get(account=account, name=language)
+            attributes = {'account_id': account_id, 'name': language}
+            if Skill.objects.filter(**attributes):
+                skill = Skill.objects.get(**attributes)
                 skill.level = level
             else:
-                skill = Skill(account=account, name=language, level=level)
+                skill = Skill(level=level, **attributes)
             skill.save()
