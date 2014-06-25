@@ -141,7 +141,6 @@ class Contribution(TimestampFields):
 class Language(models.Model):
     class Meta:
         app_label = 'hub'
-        unique_together = ('project', 'name')
 
     project = models.ForeignKey(Project)
     name = models.CharField(max_length=50)
@@ -151,11 +150,10 @@ class Language(models.Model):
 class Skill(models.Model):
     class Meta:
         app_label = 'hub'
-        unique_together = ('account', 'name')
 
     account = models.ForeignKey(Account)
-    name = models.CharField(max_length=30)
-    level = models.IntegerField()
+    name = models.CharField(max_length=50)
+    level = models.FloatField()
 
 
 class Tip(models.Model):
