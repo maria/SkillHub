@@ -4,6 +4,7 @@
 *.pyc
 *_local.py
 db
+skillhub/components
 skillhub/static/admin/
 skillhub/static/bootstrap_toolkit/
 skillhub/static/datepicker/
