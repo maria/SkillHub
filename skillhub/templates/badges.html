@@ -9,7 +9,7 @@
 {% else %}
     {% with item_template='badge_item.html' %}
         {% for badge in badges %}
-            {% include item_template with items=badge %}
+            {% include item_template with item=badge %}
         {% endfor %}
     {% endwith %}
 {% endif %}

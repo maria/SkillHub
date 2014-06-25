@@ -107,6 +107,6 @@ class AccountBadges(TemplateView):
     template_name = 'badges.html'
 
     def get(self, request):
-        badges = AccountBadge.objects.filter(account=request.user.account)
+        account_badges = AccountBadge.objects.filter(account=request.user.account)
+        badges = [account_badge.badge for account_badge in account_badges]
         return render(request, self.template_name, {'badges': badges})
-

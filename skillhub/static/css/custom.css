@@ -30,7 +30,7 @@ p, h3 {
     position:fixed;
 }
 
-#projects, #tips, #tutorials, #contributions{
+#projects, #tips, #tutorials, #contributions, #badges{
     margin-left: 25%;
     margin-top: 10%
 }
@@ -92,6 +92,16 @@ div#logo {
 }
 
 #main-menu .skill-thumbnail {
+    width: 160px;
+    height: 160px;
+    padding: 6px 0;
+    font-size: 64px;
+    line-height: 2.3;
+    border-radius: 150px;
+    border-color: white;
+}
+
+#badges img {
     width: 160px;
     height: 160px;
     padding: 6px 0;
