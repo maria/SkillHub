@@ -30,6 +30,16 @@ p, h3 {
     position:fixed;
 }
 
+#projects, #tips, #tutorials, #contributions{
+    margin-left: 25%;
+    margin-top: 10%
+}
+
+#sync-hubot {
+    margin-left: 50%;
+    margin-top: 30%;
+}
+
 #second-menu .list-group-item{
     background: none;
     border: none;
@@ -48,11 +58,16 @@ p, h3 {
 }
 
 #sad-hubot {
-    margin-left: 20%;
+    margin-left: 25%;
     margin-top: 40%;
 }
 
 #projects .octicon-hubot {
+    font-size: 80px;
+    text-align: center;
+}
+
+#sync-hubot .octicon-hourglass {
     font-size: 80px;
     text-align: center;
 }
@@ -86,12 +101,6 @@ div#logo {
     border-radius: 150px;
     border-color: white;
 }
-
-#projects, #tips, #tutorials, #contributions{
-    margin-left: 25%;
-    margin-top: 10%
-}
-
 
 #projects div.thumbnail, #contributions div.thumbnail {
     border-color: rgb(67, 61, 68);

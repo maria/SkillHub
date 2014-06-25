@@ -8,3 +8,5 @@ skillhub/static/admin/
 skillhub/static/bootstrap_toolkit/
 skillhub/static/datepicker/
 skillhub/static/octicons/
+skillhub/static/jquery/
+skillhub/static/underscore/

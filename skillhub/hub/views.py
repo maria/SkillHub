@@ -1,7 +1,10 @@
+import json
+
 from django.contrib.auth import logout
-from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
 
 from constants import ProjectTypes, MAX_PROJECTS
 from hub.connect_github import ConnectGitHub
@@ -29,7 +32,7 @@ class ConnectGitHubAccount(TemplateView):
         token = ConnectGitHub().get_access_token(request.GET['code'])
         account = Account.save_github_user(token)
         message = Account.login(request, account.user.username, token)
-        return redirect("sync")
+        return redirect("home")
 
 
 class LogoutAccount(TemplateView):
@@ -39,16 +42,17 @@ class LogoutAccount(TemplateView):
         return redirect("home")
 
 
-class SyncGithubData(TemplateView):
-    template_name = 'sync.html'
+class SyncGithubData(View):
 
     def get(self, request):
         """Sync GitHub data for the account. Update contributions and projects.
         """
+        from nose.tools import set_trace; set_trace()
+        data = {'redirect': 'home.html'}
+        return HttpResponse(json.dumps(data), 'application/javascript')
         ProjectFinder.find_my_contributions(request.user.account)
         ProjectFinder.find_my_projects(request.user.account, ProjectTypes.PRACTICE)
         ProjectFinder.find_my_projects(request.user.account, ProjectTypes.LEARN)
-        return redirect("home")
 
 
 class Tips(TemplateView):
