@@ -1,6 +1,7 @@
 from django.db.models.signals import post_save
 
 from hub.models import Account
+from hub.give_badges import GiveBadges
 
 
 def update_badges(sender, instance, **kwargs):
