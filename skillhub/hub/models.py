@@ -39,6 +39,10 @@ class Account(TimestampFields):
     avatar_url = models.TextField()
     synced_at = models.DateTimeField(null=True, blank=True)
 
+    @property
+    def skills(self):
+        return [skill.name for skill in self.skill_set.all()]
+
     @classmethod
     def save_github_user(cls, token):
         user_data = cls._get_github_info(token)
