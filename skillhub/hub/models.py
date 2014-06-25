@@ -37,6 +37,7 @@ class Account(TimestampFields):
     github_url = models.URLField()
     github_token = models.TextField()
     avatar_url = models.TextField()
+    synced_at = models.DateTimeField(null=True, blank=True)
 
     @classmethod
     def save_github_user(cls, token):
