@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.db import models
 
-from constants import ProjectTypes, MAX_PROJECTS
+from constants import BadgeTypes, ProjectTypes, MAX_PROJECTS
 
 
 
@@ -173,5 +173,17 @@ class Tutorial(models.Model):
     url = models.URLField()
 
 
+class Badge(models.Model):
+    class Meta:
+        app_label = 'hub'
+
+    type = models.CharField(max_length=50, choices=tuple(BadgeTypes.items()))
+    url = models.URLField()
 
 
+class AccountBadge(models.Model):
+    class Meta:
+        app_label = 'hub'
+
+    account = models.ForeignKey(Account)
+    badge = models.ForeignKey(Badge)

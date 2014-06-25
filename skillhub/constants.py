@@ -53,6 +53,13 @@ class ProjectTypes(Constants):
     PRACTICE = 'Practice'
     LEARN = 'Learn'
 
+
+class BadgeTypes(Constants):
+    FIRST_CONTRIBUTION = 'first_contrib'
+    TEN_CONTRIBUTIONS = 'ten_contrib'
+    FIVE_SKILLS = 'five_skills'
+
+
 # GitHub search query limits
 MAX_PROJECTS = 10
 MAX_SKILLS = 3
