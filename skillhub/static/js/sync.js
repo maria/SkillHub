@@ -9,7 +9,6 @@ $.ajax({
         alert('Something went wrong please refresh.');
     },
     error: function(response){
-        console.log(response);
         alert('Something went wrong please refresh.');
     },
 })
