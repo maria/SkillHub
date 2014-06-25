@@ -1,14 +1,16 @@
 $.ajax({
     url: window.location.origin + "/sync/",
     dataType:"json",
-    timeout: 80000,
+    timeout: 82000,
     success: function(response) {
         $("#sync-hubot").remove();
     },
     failure: function(response) {
-        alert('Something went wrong please refresh.');
+        $("#sync-hubot").remove();
+        alert('Something failed, maybe a timeout. Sorry about that, please refresh.');
     },
     error: function(response){
-        alert('Something went wrong please refresh.');
+        $("#sync-hubot").remove();
+        alert('Something went wrong, please refresh.');
     },
 })
