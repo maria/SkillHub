@@ -8,7 +8,6 @@ from django.db import models
 from constants import BadgeTypes, ProjectTypes, MAX_PROJECTS
 
 
-
 class TimestampFields(models.Model):
     '''
         An abstract model to include in your model class
