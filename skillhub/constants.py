@@ -60,6 +60,11 @@ class BadgeTypes(Constants):
     FIVE_SKILLS = 'five_skills'
 
 
+class BadgeUrls(Constants):
+    FIRST_CONTRIBUTION = 'https://octodex.github.com/images/baracktocat.jpg'
+    TEN_CONTRIBUTIONS = 'https://octodex.github.com/images/dojocat.jpg'
+    FIVE_SKILLS = 'https://octodex.github.com/images/labtocat.png'
+
 # GitHub search query limits
 MAX_PROJECTS = 10
 MAX_SKILLS = 3
