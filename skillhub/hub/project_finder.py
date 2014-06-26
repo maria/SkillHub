@@ -37,7 +37,6 @@ class ProjectFinder(object):
 
         # We need the names for the GH query.
         wanted_languages = [skill.name.lower() for skill in wanted_skills]
-        query = 'language:%s' % ','.join(wanted_languages)
 
         # Set query to find an active project
         stars = '%d..%d' % (MIN_STARS, MAX_STARS)
@@ -45,9 +44,15 @@ class ProjectFinder(object):
         pushed = '>%s' % get_last_month()
         qualifiers = {'stars': stars, 'forks': forks, 'pushed': pushed}
 
-        # Search GH API for projects.
-        repos = connection.search_repositories(
-            query=query, sort='stars', order='desc', **qualifiers)
+        # Search GH API for projects per each language.
+        repos = []
+        for wanted_language in wanted_languages:
+            query = 'language:%s' % wanted_language
+
+            repos_per_lang = connection.search_repositories(
+                query=query, sort='stars', order='desc', **qualifiers)
+
+            repos.extend(repos_per_lang.get_page(0)[:MAX_PROJECTS])
 
         # Save the projects which are a match for the user.
         cls.find_account_projects(account, repos, type)
@@ -110,16 +115,14 @@ class ProjectFinder(object):
     @classmethod
     def find_account_projects(cls, account, repos, type):
         """Based on the search query, select the maximum number of projects."""
-        i = 0
-        repos_page = repos.get_page(i)
-        while len(repos_page) < MAX_PROJECTS:
-            i += 1
-            next_repos = repos.get_page(i)
-            if next_repos:
-                repos_page.extend(next_repos)
-            else:
-                break
-        cls.set_projects_languages(account, repos_page, type)
+        if type == ProjectTypes.PRACTICE:
+            reverse = False
+        elif type == ProjectTypes.LEARN:
+            reverse = True
+
+        repos.sort(key=lambda x: len(x.get_languages()), reverse=reverse)
+        repos = repos[:MAX_PROJECTS]
+        cls.set_projects_languages(account, repos, type)
 
     @classmethod
     def set_projects_languages(cls, account, repos, type):
