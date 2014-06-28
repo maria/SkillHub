@@ -4,6 +4,7 @@ from github import Github
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.signals import post_save
 
 from constants import BadgeTypes, ProjectTypes, MAX_PROJECTS
 
@@ -191,3 +192,10 @@ class AccountBadge(models.Model):
 
     account = models.ForeignKey(Account)
     badge = models.ForeignKey(Badge)
+
+
+def update_badges(sender, instance, **kwargs):
+    from hub.give_badges import GiveBadges
+    GiveBadges.get_my_badges(instance)
+
+post_save.connect(update_badges, sender=Account)
