@@ -1,5 +1,4 @@
 import os
-import dj_database_url
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -12,11 +11,13 @@ MANAGERS = ADMINS
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default="sqlite:////{0}".format(os.path.join(BASE_DIR, 'db', 'development.sqlite3')))}
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 ALLOWED_HOSTS = ['*']
-SECURE_PROXY_SSL_HEADER =  ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
