@@ -3,6 +3,9 @@
 *~
 *.pyc
 *_local.py
+*.DS_Store
+.vagrant
+*db.sqlite3
 db
 skillhub/components
 skillhub/static/admin/
