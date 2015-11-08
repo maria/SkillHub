@@ -1,82 +1,125 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth.models import User
-from django.db import models
-from south.db import db
-from south.v2 import SchemaMigration
+from __future__ import unicode_literals
 
-from hub.models import Account, Project
-
-class Migration(SchemaMigration):
+from django.db import models, migrations
+from django.conf import settings
 
 
-    def forwards(self, orm):
-        fields = (
-            ('id', models.AutoField(primary_key=True)),
-            ('user', models.OneToOneField(User)),
-            ('github_url', models.URLField()),
-            ('github_token', models.TextField()),
-            ('avatar_url', models.TextField()),
-        )
-        db.create_table('hub_account', fields)
-        db.send_create_signal('hub', ['Account'])
+class Migration(migrations.Migration):
 
-        fields = (
-            ('id', models.AutoField(primary_key=True)),
-            ('account', models.ForeignKey(Account)),
-            ('type', models.CharField(max_length=30)),
-            ('name', models.CharField(max_length=50)),
-            ('url', models.URLField(null=True, blank=True)),
-            ('description', models.TextField()),
-            ('stars', models.IntegerField()),
-            ('forks', models.IntegerField()),
-        )
-        db.create_table('hub_project', fields)
-        db.send_create_signal('hub', ['Project'])
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
 
-        fields = (
-            ('id', models.AutoField(primary_key=True)),
-            ('project', models.ForeignKey(Project)),
-            ('name', models.CharField(max_length=50)),
-            ('percentage', models.FloatField()),
-        )
-        db.create_table('hub_language', fields)
-        db.send_create_signal('hub', ['Language'])
-
-        fields = (
-            ('id', models.AutoField(primary_key=True)),
-            ('account', models.ForeignKey(Account)),
-            ('name', models.CharField(max_length=50)),
-            ('level', models.FloatField()),
-        )
-        db.create_table('hub_skill', fields)
-        db.send_create_signal('hub', ['Skill'])
-
-        fields = (
-            ('id', models.AutoField(primary_key=True)),
-            ('name', models.CharField(max_length=50)),
-            ('description', models.TextField()),
-        )
-        db.create_table('hub_tip', fields)
-        db.send_create_signal('hub', ['Tip'])
-
-
-        fields = (
-            ('id', models.AutoField(primary_key=True)),
-            ('name', models.CharField(max_length=50)),
-            ('description', models.TextField()),
-            ('url', models.URLField(null=True, blank=True)),
-        )
-        db.create_table('hub_tutorial', fields)
-        db.send_create_signal('hub', ['Tutorial'])
-
-    def backwards(self, orm):
-        db.delete_table('hub_account')
-        db.delete_table('hub_project')
-        db.delete_table('hub_tip')
-        db.delete_table('hub_tutorial')
-        db.delete_table('hub_skill')
-        db.delete_table('hub_language')
-
-    models = {}
-
-    complete_apps = ['hub']
+    operations = [
+        migrations.CreateModel(
+            name='Account',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(help_text=b'When this instance was created', auto_now_add=True, null=True)),
+                ('updated_at', models.DateTimeField(help_text=b'When this instance was last updated', auto_now=True, null=True)),
+                ('github_url', models.URLField()),
+                ('github_token', models.TextField()),
+                ('avatar_url', models.TextField()),
+                ('synced_at', models.DateTimeField(null=True, blank=True)),
+                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='AccountBadge',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('account', models.ForeignKey(to='hub.Account')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Badge',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=50)),
+                ('type', models.CharField(max_length=50, choices=[(b'TEN_CONTRIBUTIONS', b'ten_contrib'), (b'FIRST_CONTRIBUTION', b'first_contrib'), (b'FIVE_SKILLS', b'five_skills')])),
+                ('url', models.URLField()),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Contribution',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(help_text=b'When this instance was created', auto_now_add=True, null=True)),
+                ('updated_at', models.DateTimeField(help_text=b'When this instance was last updated', auto_now=True, null=True)),
+                ('title', models.TextField()),
+                ('url', models.URLField()),
+                ('merged', models.DateTimeField()),
+                ('repo', models.CharField(max_length=50)),
+                ('repo_url', models.URLField()),
+                ('account', models.ForeignKey(to='hub.Account')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Language',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=50)),
+                ('percentage', models.FloatField()),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Project',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created_at', models.DateTimeField(help_text=b'When this instance was created', auto_now_add=True, null=True)),
+                ('updated_at', models.DateTimeField(help_text=b'When this instance was last updated', auto_now=True, null=True)),
+                ('type', models.CharField(max_length=30, choices=[(b'PRACTICE', b'Practice'), (b'LEARN', b'Learn')])),
+                ('name', models.CharField(max_length=50)),
+                ('url', models.URLField()),
+                ('description', models.TextField()),
+                ('stars', models.IntegerField()),
+                ('forks', models.IntegerField()),
+                ('account', models.ForeignKey(to='hub.Account')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Skill',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=50)),
+                ('level', models.FloatField()),
+                ('account', models.ForeignKey(to='hub.Account')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Tip',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=50)),
+                ('description', models.TextField()),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Tutorial',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=50)),
+                ('description', models.TextField()),
+                ('url', models.URLField()),
+            ],
+        ),
+        migrations.AddField(
+            model_name='language',
+            name='project',
+            field=models.ForeignKey(to='hub.Project'),
+        ),
+        migrations.AddField(
+            model_name='accountbadge',
+            name='badge',
+            field=models.ForeignKey(to='hub.Badge'),
+        ),
+        migrations.AlterUniqueTogether(
+            name='project',
+            unique_together=set([('account', 'type', 'url')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='contribution',
+            unique_together=set([('account', 'url')]),
+        ),
+    ]
