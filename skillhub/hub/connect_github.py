@@ -3,14 +3,8 @@ import urllib
 from github.Requester import Requester
 
 from hub.models import Account
-from settings import GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET
-
-
-DEFAULT_TIMEOUT = 30
-DEFAULT_USER_AGENT = 'PyGithub/Python'
-BASE_URL = 'https://github.com/login'
-AUTHORIZE_URL = 'https://github.com/login/oauth/authorize'
-TOKEN_URL = 'https://github.com/login/oauth/access_token'
+from settings import (GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, DEFAULT_TIMEOUT,
+    DEFAULT_USER_AGENT, GITHUB_BASE_URL, GITHUB_AUTHORIZE_URL, GITHUB_TOKEN_URL)
 
 
 class ConnectGitHub(object):
@@ -21,15 +15,16 @@ class ConnectGitHub(object):
 
         self.requester = Requester(
             client_id=self.client_id, client_secret=self.client_secret,
-            base_url=BASE_URL, login_or_token=None, password=None,
-            timeout=DEFAULT_TIMEOUT, user_agent=DEFAULT_USER_AGENT, per_page=0)
+            base_url=GITHUB_BASE_URL, login_or_token=None, password=None,
+            timeout=DEFAULT_TIMEOUT, user_agent=DEFAULT_USER_AGENT, per_page=10,
+            api_preview=False)
 
     def authorize_url(self, **kwargs):
         """First step of the authentication process -
             Redirect user to request GitHub access.
         """
         kwargs.update({'client_id': self.client_id})
-        return AUTHORIZE_URL + "?" + urllib.urlencode(kwargs)
+        return GITHUB_AUTHORIZE_URL + "?" + urllib.urlencode(kwargs)
 
     def get_access_token(self, code):
         """Second step of the authentication process -
@@ -40,9 +35,8 @@ class ConnectGitHub(object):
         """
         params = {'client_id': self.client_id,
                   'client_secret': self.client_secret,
-                  'code': code
-                }
+                  'code': code}
         headers, data = self.requester.requestJsonAndCheck(
-            verb="POST", url=TOKEN_URL, parameters=params)
+            verb="POST", url=GITHUB_TOKEN_URL, parameters=params)
 
         return data['data'].split('&')[0].split('=')[-1]

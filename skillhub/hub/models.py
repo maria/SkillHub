@@ -65,9 +65,9 @@ class Account(TimestampFields):
     def get_user(cls, token):
         user_data = cls._get_github_info(token)
 
-        users = User.objects.filter(username=user_data['username'])
+        users = User.objects.filter(email=user_data['email'])
 
-        if len(users) is 1:
+        if users.count() == 1:
             user = users[0]
             if user.account.github_token != token:
                 user.password = token
